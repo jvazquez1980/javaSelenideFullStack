@@ -87,6 +87,26 @@ public class BookingClient {
         return this;
     }
     
+    @Step("Verify response status code is one of: {expectedStatusCodes}")
+    public BookingClient verifyStatusCodeIsOneOf(Response response, int... expectedStatusCodes) {
+        int actualStatusCode = response.getStatusCode();
+        logger.info("Verifying status code is one of: {}. Actual: {}", java.util.Arrays.toString(expectedStatusCodes), actualStatusCode);
+        
+        boolean isValid = false;
+        for (int expectedCode : expectedStatusCodes) {
+            if (actualStatusCode == expectedCode) {
+                isValid = true;
+                break;
+            }
+        }
+        
+        if (!isValid) {
+            throw new AssertionError("Expected status code to be one of " + java.util.Arrays.toString(expectedStatusCodes) + 
+                                   " but was " + actualStatusCode + ". Response: " + response.asString());
+        }
+        return this;
+    }
+    
     @Step("Parse response to BookingResponse object")
     public BookingResponse parseBookingResponse(Response response) {
         logger.info("Parsing response to BookingResponse object");

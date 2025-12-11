@@ -1,0 +1,114 @@
+plugins {
+    id 'java'
+    id 'io.qameta.allure' version '2.11.2'
+}
+
+group = 'com.automation'
+version = '1.0.0'
+description = 'Automation framework using Java, Selenide, and RestAssured with SOLID principles and modular POM'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    selenideVersion = '6.19.1'
+    restAssuredVersion = '5.3.2'
+    testngVersion = '7.8.0'
+    jacksonVersion = '2.15.3'
+    slf4jVersion = '1.7.36'
+    logbackVersion = '1.2.12'
+    allureVersion = '2.24.0'
+}
+
+dependencies {
+    // Selenide for UI automation
+    implementation "com.codeborne:selenide:${selenideVersion}"
+    
+    // RestAssured for API automation
+    implementation "io.rest-assured:rest-assured:${restAssuredVersion}"
+    
+    // TestNG for test framework
+    testImplementation "org.testng:testng:${testngVersion}"
+    
+    // Jackson for JSON handling
+    implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+    implementation "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}"
+    
+    // Logging
+    implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    implementation "ch.qos.logback:logback-classic:${logbackVersion}"
+    
+    // Allure reporting
+    testImplementation "io.qameta.allure:allure-testng:${allureVersion}"
+    testImplementation "io.qameta.allure:allure-rest-assured:${allureVersion}"
+}
+
+test {
+    useTestNG() {
+        suites 'src/test/resources/testng.xml'
+    }
+    
+    systemProperty 'allure.results.directory', 'build/allure-results'
+    
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+    }
+}
+
+allure {
+    adapter {
+        aspectjWeaver.set(true)
+        frameworks {
+            testng {
+                adapterVersion.set(allureVersion)
+            }
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+// Task to run specific test classes
+task runEndToEndTest(type: Test) {
+    useTestNG() {
+        includeGroups 'endtoend'
+        testClassesDirs = sourceSets.test.output.classesDirs
+        classpath = sourceSets.test.runtimeClasspath
+    }
+}
+
+// Task to run UI tests only
+task runUITests(type: Test) {
+    useTestNG() {
+        includeGroups 'ui'
+        testClassesDirs = sourceSets.test.output.classesDirs
+        classpath = sourceSets.test.runtimeClasspath
+    }
+}
+
+// Task to run API tests only
+task runAPITests(type: Test) {
+    useTestNG() {
+        includeGroups 'api'
+        testClassesDirs = sourceSets.test.output.classesDirs
+        classpath = sourceSets.test.runtimeClasspath
+    }
+}
+
+// Task to run mixed tests (UI + API)
+task runMixedTests(type: Test) {
+    useTestNG() {
+        includeGroups 'mixed'
+        testClassesDirs = sourceSets.test.output.classesDirs
+        classpath = sourceSets.test.runtimeClasspath
+    }
+}

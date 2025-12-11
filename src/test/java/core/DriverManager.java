@@ -18,9 +18,14 @@ public class DriverManager {
         // Configure Selenide - let it handle WebDriver creation
         Configuration.browser = "chrome";
         Configuration.browserSize = "1920x1080";
-        Configuration.timeout = 10000;
-        Configuration.pageLoadTimeout = 30000;
         Configuration.headless = false;
+        
+        // Configure Selenide timeouts
+        Configuration.timeout = 5000; // 5 seconds timeout for element finding
+        Configuration.pollingInterval = 100; // Check every 100ms
+        Configuration.assertionMode = com.codeborne.selenide.AssertionMode.STRICT;
+        Configuration.fastSetValue = true;
+        Configuration.clickViaJs = false;
         
         // Configure Chrome options properly for Selenide 6.x
         System.setProperty("chromeoptions.args", "--no-sandbox,--disable-dev-shm-usage,--disable-blink-features=AutomationControlled");

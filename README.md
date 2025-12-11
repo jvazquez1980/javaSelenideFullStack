@@ -1,6 +1,6 @@
 # Java Selenide RestAssured Automation Framework
 
-Este proyecto es un framework de automatización completo que combina **Java**, **Selenide** (para UI) y **RestAssured** (para API) siguiendo principios **SOLID** y un patrón **Page Object Model (POM)** modular.
+Este proyecto es un framework de automatización completo que combina **Java**, **Selenide** (para UI) y **RestAssured** (para API) siguiendo principios **SOLID** y un patrón **Page Object Model (POM)** modular. Utiliza **Gradle** como herramienta de construcción y gestión de dependencias.
 
 ## 🏗️ Arquitectura del Proyecto
 
@@ -39,7 +39,7 @@ src/test/java
 ## 📋 Prerrequisitos
 
 1. **Java 11 o superior**
-2. **Maven 3.6+**
+2. **Gradle 8.5+** (incluido con Gradle Wrapper)
 3. **Google Chrome** (última versión)
 4. **ChromeDriver** (se descarga automáticamente)
 
@@ -59,10 +59,10 @@ echo 'export JAVA_HOME="/opt/homebrew/opt/openjdk@11"' >> ~/.zshrc
 source ~/.zshrc
 ```
 
-### 3. Instalar Maven
+### 3. Instalar Gradle (Opcional - se incluye Gradle Wrapper)
 ```bash
-# Usando Homebrew
-brew install maven
+# Usando Homebrew (opcional, ya que se incluye Gradle Wrapper)
+brew install gradle
 ```
 
 ### 4. Verificar instalaciones
@@ -70,8 +70,11 @@ brew install maven
 # Verificar Java
 java -version
 
-# Verificar Maven
-mvn -version
+# Verificar Gradle (si está instalado globalmente)
+gradle -version
+
+# O usar Gradle Wrapper (recomendado)
+./gradlew -version
 ```
 
 ### 5. Clonar/Descargar el proyecto
@@ -84,17 +87,24 @@ cd JavaSelenide
 cd /Users/javiervt/Desktop/JavaSelenide
 ```
 
-### 6. Instalar dependencias del proyecto
+### 6. Construir el proyecto e instalar dependencias
 ```bash
-mvn clean install
+# Usando Gradle Wrapper (recomendado)
+./gradlew build
+
+# O usando Gradle global
+gradle build
 ```
 
 ### ⚠️ Solución de Problemas de Instalación
 
-#### Error: "command not found: mvn"
+#### Error: "command not found: gradle"
 ```bash
-# Maven no está instalado
-brew install maven
+# Usar Gradle Wrapper en su lugar (recomendado)
+./gradlew build
+
+# O instalar Gradle globalmente
+brew install gradle
 ```
 
 #### Error: "Unable to locate a Java Runtime"
@@ -115,24 +125,34 @@ echo 'export JAVA_HOME="/opt/homebrew/opt/openjdk@11"' >> ~/.zshrc
 
 ### Ejecutar todos los tests
 ```bash
-mvn test
+# Usando Gradle Wrapper (recomendado)
+./gradlew test
+
+# O usando Gradle global
+gradle test
 ```
 
 ### Ejecutar tests específicos
 ```bash
 # Solo tests de UI
-mvn test -Dtest=EndToEndTest#testBookingSystemNavigation
+./gradlew runUITests
 
 # Solo tests de API
-mvn test -Dtest=EndToEndTest#testApiEndpoints
+./gradlew runAPITests
 
 # Test completo End-to-End
-mvn test -Dtest=EndToEndTest#testCompleteEndToEndWorkflow
+./gradlew runEndToEndTest
+
+# Ejecutar test específico por clase
+./gradlew test --tests "tests.EndToEndTest"
+
+# Ejecutar método específico
+./gradlew test --tests "tests.EndToEndTest.testCompleteEndToEndWorkflow"
 ```
 
-### Ejecutar con TestNG XML
+### Ejecutar con TestNG XML (configuración por defecto)
 ```bash
-mvn test -DsuiteXmlFile=src/test/resources/testng.xml
+./gradlew test
 ```
 
 ## 📊 Reportes
@@ -142,15 +162,19 @@ mvn test -DsuiteXmlFile=src/test/resources/testng.xml
 # Instalar Allure (si no está instalado)
 npm install -g allure-commandline
 
-# Generar y abrir reporte
-mvn test
-allure serve target/allure-results
+# Generar y abrir reporte con Gradle
+./gradlew test allureReport
+allure serve build/allure-results
+
+# O usar el plugin de Allure para Gradle
+./gradlew allureServe
 ```
 
 ### Ver logs
 Los logs se generan en:
 - **Consola**: Output directo durante la ejecución
-- **Archivo**: `target/logs/automation.log`
+- **Archivo**: `build/logs/automation.log`
+- **Reportes de tests**: `build/reports/tests/test/index.html`
 
 ## 🔧 Configuración Personalizada
 
@@ -208,6 +232,15 @@ google-chrome --version
 # Aumentar timeouts en DriverManager.java
 Configuration.timeout = 15000;
 Configuration.pageLoadTimeout = 45000;
+```
+
+### Error: Gradle build falla
+```bash
+# Limpiar y reconstruir
+./gradlew clean build
+
+# Ver más detalles del error
+./gradlew build --stacktrace
 ```
 
 ### Error: API tests fallan

@@ -1,39 +1,61 @@
 package tests;
 
 import core.BaseTest;
+import data.Users;
 import io.qameta.allure.*;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pages.home.HomePage;
+import steps.HomePageSteps;
 
-import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selenide.$;
-
-@Epic("Simple UI Testing")
-@Feature("Basic Navigation")
+@Epic("UI Testing")
+@Feature("Home Page Navigation")
 public class SimpleUITest extends BaseTest {
-    
-    private HomePage homePage;
-    
+
+    private HomePageSteps homePageSteps;
+
+    @BeforeMethod
+    public void initializeSteps() {
+        homePageSteps = new HomePageSteps();
+    }
+
     @Test
-    @Story("Browser opens and navigates correctly")
-    @Description("Simple test to verify browser functionality")
+    @Story("User can navigate and interact with home page")
+    @Description("Verify user can load home page, view rooms, and submit contact form")
     @Severity(SeverityLevel.CRITICAL)
-    public void testBrowserNavigation() {
-        homePage = new HomePage();
-        
-        // Navigate to the website
+    public void testHomePageNavigation() {
+        // Given: User navigates to the home page
         navigateToUrl(UI_BASE_URL);
-        
-        // Verify page title or any basic element
-        homePage.verifyPageLoaded()
-                .verifyRoomsDisplayed()   
-                     
-        // Use HomePage methods
-        homePage.scrollToContact()
-                .fillContactForm("John Doe", "john.doe@example.com", "123456789", "Test Subject", "Test Message")
+
+        // When: User verifies page is loaded and rooms are displayed
+        homePageSteps.verifyPageLoaded()
+                .verifyRoomsDisplayed();
+
+        // Then: User can interact with contact form
+        homePageSteps.scrollToContact()
+                .fillContactForm(
+                        Users.TestUser.NAME,
+                        Users.TestUser.EMAIL,
+                        Users.TestUser.PHONE,
+                        Users.TestUser.SUBJECT,
+                        Users.TestUser.MESSAGE)
                 .submitContactForm()
                 .verifyContactSubmission();
-        
-        logger.info("Browser navigation test completed successfully");
+
+        logger.info("Home page navigation test completed successfully");
+    }
+
+    @Test
+    @Story("User can view available rooms")
+    @Description("Verify user can load home page and view room availability")
+    @Severity(SeverityLevel.NORMAL)
+    public void testRoomDisplay() {
+        // Given: User navigates to the home page
+        navigateToUrl(UI_BASE_URL);
+
+        // When & Then: User verifies rooms are displayed
+        homePageSteps.verifyPageLoaded()
+                .verifyRoomsDisplayed();
+
+        logger.info("Room display test completed successfully");
     }
 }

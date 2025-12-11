@@ -1,9 +1,6 @@
 package core;
 
 import io.qameta.allure.Step;
-import io.restassured.RestAssured;
-import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.filter.log.ResponseLoggingFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterMethod;
@@ -13,15 +10,13 @@ import org.testng.annotations.BeforeSuite;
 public abstract class BaseTest {
     protected static final Logger logger = LoggerFactory.getLogger(BaseTest.class);
     
-    // Test URLs
+    // UI Test URL
     protected static final String UI_BASE_URL = "https://automationintesting.online/";
-    protected static final String API_BASE_URL = "https://jsonplaceholder.typicode.com";
     
     @BeforeSuite
     public void setupSuite() {
-        logger.info("Setting up test suite...");
-        configureRestAssured();
-        logger.info("Test suite setup completed");
+        logger.info("Setting up UI test suite...");
+        logger.info("UI test suite setup completed");
     }
     
     @BeforeMethod
@@ -41,15 +36,6 @@ public abstract class BaseTest {
         logger.info("Test teardown completed");
     }
     
-    private void configureRestAssured() {
-        RestAssured.baseURI = API_BASE_URL;
-        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-        
-        // Add logging filters for better debugging
-        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
-        
-        logger.info("RestAssured configured with base URI: {}", API_BASE_URL);
-    }
     
     @Step("Navigate to URL: {url}")
     protected void navigateToUrl(String url) {
