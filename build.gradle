@@ -32,6 +32,7 @@ dependencies {
     
     // RestAssured for API automation
     implementation "io.rest-assured:rest-assured:${restAssuredVersion}"
+    testImplementation "io.rest-assured:json-schema-validator:${restAssuredVersion}"
     
     // TestNG for test framework
     testImplementation "org.testng:testng:${testngVersion}"

@@ -51,6 +51,8 @@ Thumbs.db
 # Test results
 test-output/
 allure-results/
+allure-report/
+build/reports/allure-report/
 screenshots/
 target/logs/
 

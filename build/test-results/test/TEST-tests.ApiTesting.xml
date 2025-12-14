@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tests.ApiTesting" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-12-09T19:37:56" hostname="MacBook-Pro-de-Javier.local" time="2.082">
+<testsuite name="tests.ApiTesting" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-12-14T11:48:30" hostname="MacBook-Air-de-Javier.local" time="1.921">
   <properties/>
-  <testcase name="testApiEndpoints" classname="tests.ApiTesting" time="0.771"/>
-  <testcase name="testApiCrudOperations" classname="tests.ApiTesting" time="1.31"/>
+  <testcase name="testApiEndpoints" classname="tests.ApiTesting" time="0.774"/>
+  <testcase name="testApiCrudOperations" classname="tests.ApiTesting" time="1.147"/>
   <system-out><![CDATA[Request method:	GET
 Request URI:	https://jsonplaceholder.typicode.com/posts
 Proxy:			<none>
@@ -16,7 +16,7 @@ Cookies:		<none>
 Multiparts:		<none>
 Body:			<none>
 HTTP/1.1 200 OK
-Date: Tue, 09 Dec 2025 19:37:56 GMT
+Date: Sun, 14 Dec 2025 11:48:31 GMT
 Content-Type: application/json; charset=utf-8
 Transfer-Encoding: chunked
 Connection: keep-alive
@@ -27,8 +27,8 @@ etag: W/"6b80-Ybsq/K6GwwqrYkAsFxqDXGC7DoM"
 expires: -1
 nel: {"report_to":"heroku-nel","response_headers":["Via"],"max_age":3600,"success_fraction":0.01,"failure_fraction":0.1}
 pragma: no-cache
-report-to: {"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=6M8cLCgtsOiOk7qV%2FGDvHIn7Q8a9O1EWBNAoCaSLd7I%3D\u0026sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d\u0026ts=1752040748"}],"max_age":3600}
-reporting-endpoints: heroku-nel="https://nel.heroku.com/reports?s=6M8cLCgtsOiOk7qV%2FGDvHIn7Q8a9O1EWBNAoCaSLd7I%3D&sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d&ts=1752040748"
+report-to: {"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=MjuwUpQ%2FOJKh9icE2k0d2PI8n40vvyrK5fTcF0oIIwc%3D\u0026sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d\u0026ts=1757437690"}],"max_age":3600}
+reporting-endpoints: heroku-nel="https://nel.heroku.com/reports?s=MjuwUpQ%2FOJKh9icE2k0d2PI8n40vvyrK5fTcF0oIIwc%3D&sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d&ts=1757437690"
 Server: cloudflare
 vary: Origin, Accept-Encoding
 via: 2.0 heroku-router
@@ -36,10 +36,10 @@ x-content-type-options: nosniff
 x-powered-by: Express
 x-ratelimit-limit: 1000
 x-ratelimit-remaining: 999
-x-ratelimit-reset: 1752040775
-Age: 800
+x-ratelimit-reset: 1757437737
+Age: 11952
 cf-cache-status: HIT
-CF-RAY: 9ab6f5bffc8cec92-MAD
+CF-RAY: 9add78ff2e414e84-MAD
 alt-svc: h3=":443"; ma=86400
 
 [
@@ -657,7 +657,7 @@ Cookies:		<none>
 Multiparts:		<none>
 Body:			<none>
 HTTP/1.1 200 OK
-Date: Tue, 09 Dec 2025 19:37:56 GMT
+Date: Sun, 14 Dec 2025 11:48:31 GMT
 Content-Type: application/json; charset=utf-8
 Transfer-Encoding: chunked
 Connection: keep-alive
@@ -667,20 +667,20 @@ etag: W/"116-jnDuMpjju89+9j7e0BqkdFsVRjs"
 expires: -1
 nel: {"report_to":"heroku-nel","response_headers":["Via"],"max_age":3600,"success_fraction":0.01,"failure_fraction":0.1}
 pragma: no-cache
-report-to: {"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=WBf%2BBjxnkYAU%2FEtSe%2B1LnEU5vl7f9PlT8c%2FHasLYo5U%3D\u0026sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d\u0026ts=1765191166"}],"max_age":3600}
-reporting-endpoints: heroku-nel="https://nel.heroku.com/reports?s=WBf%2BBjxnkYAU%2FEtSe%2B1LnEU5vl7f9PlT8c%2FHasLYo5U%3D&sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d&ts=1765191166"
+report-to: {"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=61HeNJmnEqexfe8N%2Fv5zXE%2FKqrv1Mz7zNgXDvf6XsSI%3D\u0026sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d\u0026ts=1765709418"}],"max_age":3600}
+reporting-endpoints: heroku-nel="https://nel.heroku.com/reports?s=61HeNJmnEqexfe8N%2Fv5zXE%2FKqrv1Mz7zNgXDvf6XsSI%3D&sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d&ts=1765709418"
 Server: cloudflare
 vary: Origin, Accept-Encoding
 via: 2.0 heroku-router
 x-content-type-options: nosniff
 x-powered-by: Express
 x-ratelimit-limit: 1000
-x-ratelimit-remaining: 891
-x-ratelimit-reset: 1765191215
-Age: 24461
+x-ratelimit-remaining: 936
+x-ratelimit-reset: 1765709463
+Age: 3492
 cf-cache-status: HIT
 Content-Encoding: gzip
-CF-RAY: 9ab6f5c1ffc8ad67-MAD
+CF-RAY: 9add790158e21b07-MAD
 alt-svc: h3=":443"; ma=86400
 
 {
@@ -707,7 +707,7 @@ Body:
     "userId": 1
 }
 HTTP/1.1 201 Created
-Date: Tue, 09 Dec 2025 19:37:57 GMT
+Date: Sun, 14 Dec 2025 11:48:31 GMT
 Content-Type: application/json; charset=utf-8
 Content-Length: 119
 Connection: keep-alive
@@ -719,8 +719,8 @@ expires: -1
 location: https://jsonplaceholder.typicode.com/posts/101
 nel: {"report_to":"heroku-nel","response_headers":["Via"],"max_age":3600,"success_fraction":0.01,"failure_fraction":0.1}
 pragma: no-cache
-report-to: {"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=toJihbE3XLwKivDnkZG4qmbp0PtBfdtHKMd8wrFpmpo%3D\u0026sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d\u0026ts=1765309077"}],"max_age":3600}
-reporting-endpoints: heroku-nel="https://nel.heroku.com/reports?s=toJihbE3XLwKivDnkZG4qmbp0PtBfdtHKMd8wrFpmpo%3D&sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d&ts=1765309077"
+report-to: {"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=lSvoDVZuzayn4hyKrtWFqpZbarDV6xkqHrC2caeqFd4%3D\u0026sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d\u0026ts=1765712911"}],"max_age":3600}
+reporting-endpoints: heroku-nel="https://nel.heroku.com/reports?s=lSvoDVZuzayn4hyKrtWFqpZbarDV6xkqHrC2caeqFd4%3D&sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d&ts=1765712911"
 Server: cloudflare
 vary: Origin, X-HTTP-Method-Override, Accept-Encoding
 via: 2.0 heroku-router
@@ -728,9 +728,9 @@ x-content-type-options: nosniff
 x-powered-by: Express
 x-ratelimit-limit: 1000
 x-ratelimit-remaining: 999
-x-ratelimit-reset: 1765309087
+x-ratelimit-reset: 1765712943
 cf-cache-status: DYNAMIC
-CF-RAY: 9ab6f5c2be460329-MAD
+CF-RAY: 9add79023f1b24a7-MAD
 alt-svc: h3=":443"; ma=86400
 
 {
@@ -757,7 +757,7 @@ Body:
     "userId": 1
 }
 HTTP/1.1 200 OK
-Date: Tue, 09 Dec 2025 19:37:57 GMT
+Date: Sun, 14 Dec 2025 11:48:32 GMT
 Content-Type: application/json; charset=utf-8
 Transfer-Encoding: chunked
 Connection: keep-alive
@@ -767,8 +767,8 @@ etag: W/"70-hkoqfNlngJe1y+hRhgo4gy4NDpU"
 expires: -1
 nel: {"report_to":"heroku-nel","response_headers":["Via"],"max_age":3600,"success_fraction":0.01,"failure_fraction":0.1}
 pragma: no-cache
-report-to: {"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=toJihbE3XLwKivDnkZG4qmbp0PtBfdtHKMd8wrFpmpo%3D\u0026sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d\u0026ts=1765309077"}],"max_age":3600}
-reporting-endpoints: heroku-nel="https://nel.heroku.com/reports?s=toJihbE3XLwKivDnkZG4qmbp0PtBfdtHKMd8wrFpmpo%3D&sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d&ts=1765309077"
+report-to: {"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=mSV20yR4WA3tNBXAutQXCJzpQ5IegEC7nkjGZDdUJFg%3D\u0026sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d\u0026ts=1765712912"}],"max_age":3600}
+reporting-endpoints: heroku-nel="https://nel.heroku.com/reports?s=mSV20yR4WA3tNBXAutQXCJzpQ5IegEC7nkjGZDdUJFg%3D&sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d&ts=1765712912"
 Server: cloudflare
 vary: Origin, Accept-Encoding
 via: 2.0 heroku-router
@@ -776,10 +776,10 @@ x-content-type-options: nosniff
 x-powered-by: Express
 x-ratelimit-limit: 1000
 x-ratelimit-remaining: 998
-x-ratelimit-reset: 1765309087
+x-ratelimit-reset: 1765712943
 cf-cache-status: DYNAMIC
 Content-Encoding: gzip
-CF-RAY: 9ab6f5c509301fe8-MAD
+CF-RAY: 9add79035dee0ae4-MAD
 alt-svc: h3=":443"; ma=86400
 
 {
@@ -801,7 +801,7 @@ Cookies:		<none>
 Multiparts:		<none>
 Body:			<none>
 HTTP/1.1 200 OK
-Date: Tue, 09 Dec 2025 19:37:58 GMT
+Date: Sun, 14 Dec 2025 11:48:32 GMT
 Content-Type: application/json; charset=utf-8
 Transfer-Encoding: chunked
 Connection: keep-alive
@@ -811,8 +811,8 @@ etag: W/"2-vyGp6PvFo4RvsFtPoIWeCReyIC8"
 expires: -1
 nel: {"report_to":"heroku-nel","response_headers":["Via"],"max_age":3600,"success_fraction":0.01,"failure_fraction":0.1}
 pragma: no-cache
-report-to: {"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=dkvMB8u6zumEQvgOKrqHl4Zt%2BfU46qdK3hP%2F8xVWQQQ%3D\u0026sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d\u0026ts=1765309078"}],"max_age":3600}
-reporting-endpoints: heroku-nel="https://nel.heroku.com/reports?s=dkvMB8u6zumEQvgOKrqHl4Zt%2BfU46qdK3hP%2F8xVWQQQ%3D&sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d&ts=1765309078"
+report-to: {"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=mSV20yR4WA3tNBXAutQXCJzpQ5IegEC7nkjGZDdUJFg%3D\u0026sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d\u0026ts=1765712912"}],"max_age":3600}
+reporting-endpoints: heroku-nel="https://nel.heroku.com/reports?s=mSV20yR4WA3tNBXAutQXCJzpQ5IegEC7nkjGZDdUJFg%3D&sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d&ts=1765712912"
 Server: cloudflare
 vary: Origin, Accept-Encoding
 via: 2.0 heroku-router
@@ -820,10 +820,10 @@ x-content-type-options: nosniff
 x-powered-by: Express
 x-ratelimit-limit: 1000
 x-ratelimit-remaining: 997
-x-ratelimit-reset: 1765309087
+x-ratelimit-reset: 1765712943
 cf-cache-status: DYNAMIC
 Content-Encoding: gzip
-CF-RAY: 9ab6f5c828bc0cdb-MAD
+CF-RAY: 9add79067bd10d01-MAD
 alt-svc: h3=":443"; ma=86400
 
 {

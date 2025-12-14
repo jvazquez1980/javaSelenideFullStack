@@ -14,6 +14,7 @@ import static io.restassured.RestAssured.given;
 public class BookingClient {
     private static final Logger logger = LoggerFactory.getLogger(BookingClient.class);
     private static final String POSTS_ENDPOINT = "/posts";
+    private static final String USERS_ENDPOINT = "/users";
     
     @Step("Get all posts")
     public Response getAllPosts() {
@@ -22,6 +23,18 @@ public class BookingClient {
                 .header("Content-Type", "application/json")
                 .when()
                 .get(POSTS_ENDPOINT)
+                .then()
+                .extract()
+                .response();
+    }
+    
+    @Step("Get all users")
+    public Response getAllUsers() {
+        logger.info("Getting all users");
+        return given()
+                .header("Content-Type", "application/json")
+                .when()
+                .get(USERS_ENDPOINT)
                 .then()
                 .extract()
                 .response();

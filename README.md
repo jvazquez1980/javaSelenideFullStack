@@ -153,28 +153,49 @@ gradle test
 ### Ejecutar con TestNG XML (configuración por defecto)
 ```bash
 ./gradlew test
+
+
+# Ejecutar tests + generar reporte
+./gradlew clean test allureReport
+
+# Servir el reporte en el navegador
+allure serve build/allure-results
 ```
 
 ## 📊 Reportes
 
 ### Generar reporte Allure
 ```bash
-# Instalar Allure (si no está instalado)
-npm install -g allure-commandline
-
-# Generar y abrir reporte con Gradle
+# Ejecutar tests y generar reporte
 ./gradlew test allureReport
+
+# Abrir reporte en el navegador
 allure serve build/allure-results
 
 # O usar el plugin de Allure para Gradle
 ./gradlew allureServe
 ```
 
+### Ejecutar tests con histórico (recomendado)
+```bash
+# Preserva el histórico entre ejecuciones para ver tendencias
+./gradlew testWithHistory
+
+# Abrir reporte con tendencias
+allure serve build/allure-results
+```
+
+> **Nota**: No uses `clean` si quieres mantener el histórico de ejecuciones.
+
+### Ver reporte HTML básico
+```bash
+open build/reports/tests/test/index.html
+```
+
 ### Ver logs
-Los logs se generan en:
 - **Consola**: Output directo durante la ejecución
-- **Archivo**: `build/logs/automation.log`
-- **Reportes de tests**: `build/reports/tests/test/index.html`
+- **Reportes Allure**: `build/reports/allure-report/allureReport/index.html`
+- **Reportes TestNG**: `build/reports/tests/test/index.html`
 
 ## 🔧 Configuración Personalizada
 
