@@ -3,15 +3,20 @@ package tests;
 import core.BaseTest;
 import data.Users;
 import io.qameta.allure.*;
+import com.codeborne.selenide.ClickOptions;
+import com.codeborne.selenide.CollectionCondition;
 import org.testng.annotations.Test;
 import pages.home.HomePage;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
+import steps.GenericSteps;
 
 @Epic("UI Testing")
 @Feature("Direct Home Page Navigation - Native Selenide")
 public class DirectUITest extends BaseTest {
+
+     private final GenericSteps genericSteps = new GenericSteps();
 
      @Test
      @Story("User can navigate and interact with home page using direct steps")
@@ -32,7 +37,10 @@ public class DirectUITest extends BaseTest {
           $(HomePage.PHONE_FIELD).setValue(Users.TestUser.PHONE);
           $(HomePage.SUBJECT_FIELD).setValue(Users.TestUser.SUBJECT);
           $(HomePage.MESSAGE_FIELD).setValue(Users.TestUser.MESSAGE);
-          $(".btn.btn-primary").click();
+          $$(HomePage.SUBMIT_BUTTON_CSS).get(2)
+                    .scrollTo()
+                    .shouldHave(text("Submit"))
+                    .click();
           $(byId(HomePage.CONTACT_SECTION_ID)).shouldBe(visible);
 
           logger.info("Direct home page navigation test completed successfully");
@@ -47,7 +55,16 @@ public class DirectUITest extends BaseTest {
           open(UI_BASE_URL);
 
           // When & Then: User verifies page and rooms are displayed using native Selenide
-          $("body").shouldBe(visible);
+          $(HomePage.location).scrollTo();
+          $$(HomePage.bookNowButton).get(2).click();
+          // $(HomePage.calendar).scrollTo().shouldBe(visible);
+          $(HomePage.selected).shouldBe(visible);
+          $(HomePage.reserveNowButton).scrollTo().shouldBe(visible).click();
+          genericSteps.setValue(HomePage.name, Users.TestUser.NAME);
+          genericSteps.setValue(HomePage.surname, Users.TestUser.NAME);
+          genericSteps.setValue(HomePage.email, Users.TestUser.EMAIL);
+          genericSteps.setValue(HomePage.phone, Users.TestUser.PHONE);
+          $(".btn.btn-primary.w-100.mb-3").click();
 
           logger.info("Direct room display test completed successfully");
      }
