@@ -4,6 +4,10 @@ import core.BaseTest;
 import data.Users;
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
+
+import com.codeborne.selenide.CollectionCondition;
+import com.codeborne.selenide.Condition;
+
 import pages.home.SauceDemoPage;
 import steps.SauceSteps;
 
@@ -25,6 +29,11 @@ public class ShortBy extends BaseTest {
         open(UI_BASE_URL2);
 
         sauceSteps.standardLogin(Users.SauceDemoUser.USERNAME, Users.SauceDemoUser.PASSWORD);
+
+        $$(SauceDemoPage.Home.productItem)
+            .filter(Condition.visible)
+            .shouldHave(CollectionCondition.sizeGreaterThan(0));
+
 
         int initialProductsCount = $$(SauceDemoPage.Home.productItem).size();
         logger.info("Initial product count: {}", initialProductsCount);
