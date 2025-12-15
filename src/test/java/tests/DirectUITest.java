@@ -3,8 +3,6 @@ package tests;
 import core.BaseTest;
 import data.Users;
 import io.qameta.allure.*;
-import com.codeborne.selenide.ClickOptions;
-import com.codeborne.selenide.CollectionCondition;
 import org.testng.annotations.Test;
 import pages.home.HomePage;
 import static com.codeborne.selenide.Condition.*;
@@ -55,10 +53,10 @@ public class DirectUITest extends BaseTest {
           open(UI_BASE_URL);
 
           // When & Then: User verifies page and rooms are displayed using native Selenide
-          $(HomePage.location).scrollTo();
+          $(byId(HomePage.booking)).scrollTo();
           $$(HomePage.bookNowButton).get(2).click();
-          // $(HomePage.calendar).scrollTo().shouldBe(visible);
           $(HomePage.selected).shouldBe(visible);
+
           $(HomePage.reserveNowButton).scrollTo().shouldBe(visible).click();
           genericSteps.setValue(HomePage.name, Users.TestUser.NAME);
           genericSteps.setValue(HomePage.surname, Users.TestUser.NAME);

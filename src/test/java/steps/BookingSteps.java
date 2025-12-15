@@ -17,7 +17,7 @@ public class BookingSteps {
     public BookingSteps navigateToBooking() {
         logger.info("Navigating to booking page");
         genericSteps.shouldBeVisible(HomePage.PAGE_BANNER)
-                .clickElementById(HomePage.LET_ME_HACK_BUTTON_ID)
+                .clickElementById(HomePage.booking)
                 .shouldBeVisibleById(HomePage.ROOMS_SECTION_ID);
         return this;
     }

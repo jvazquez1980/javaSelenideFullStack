@@ -10,11 +10,11 @@ public class HomePage {
     public static final String PAGE_BANNER = "body";
 
     // IDs (sin prefijo #)
-    public static final String ROOMS_SECTION_ID = "#rooms";
+    public static final String ROOMS_SECTION_ID = "rooms";
     public static final String location = "#location";
     public static final String CONTACT_SECTION_ID = "contact";
     public static final String SUBMIT_BUTTON_ID = "submitContact";
-    public static final String LET_ME_HACK_BUTTON_ID = "booking";
+    public static final String booking = "booking";
 
     // Data attributes
     public static final String NAME_FIELD = "[data-testid='ContactName']";
