@@ -9,16 +9,17 @@ import org.testng.annotations.BeforeSuite;
 
 public abstract class BaseTest {
     protected static final Logger logger = LoggerFactory.getLogger(BaseTest.class);
-    
+
     // UI Test URL
     protected static final String UI_BASE_URL = "https://automationintesting.online/";
-    
+    protected static final String UI_BASE_URL2 = "https://www.saucedemo.com/";
+
     @BeforeSuite
     public void setupSuite() {
         logger.info("Setting up UI test suite...");
         logger.info("UI test suite setup completed");
     }
-    
+
     @BeforeMethod
     @Step("Setting up test environment")
     public void setUp() {
@@ -27,7 +28,7 @@ public abstract class BaseTest {
         DriverManager.maximizeWindow();
         logger.info("Test setup completed");
     }
-    
+
     @AfterMethod
     @Step("Cleaning up test environment")
     public void tearDown() {
@@ -35,14 +36,14 @@ public abstract class BaseTest {
         DriverManager.quitDriver();
         logger.info("Test teardown completed");
     }
-    
-    
+
+
     @Step("Navigate to URL: {url}")
     protected void navigateToUrl(String url) {
         logger.info("Navigating to URL: {}", url);
         com.codeborne.selenide.Selenide.open(url);
     }
-    
+
     @Step("Wait for {seconds} seconds")
     protected void waitFor(int seconds) {
         try {
