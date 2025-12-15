@@ -8,7 +8,6 @@ import pages.home.SauceDemoPage;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
 
 public class SauceSteps {
     private static final Logger logger = LoggerFactory.getLogger(SauceSteps.class);

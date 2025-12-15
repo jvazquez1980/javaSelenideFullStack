@@ -8,6 +8,7 @@
         <classes>
             <class name="tests.SimpleUITest"/>
             <class name="tests.DirectUITest"/>
+            <class name="tests.home.ShortBy"/>
         </classes>
     </test>
     <test name="APITests" preserve-order="true">

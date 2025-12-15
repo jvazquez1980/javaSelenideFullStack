@@ -29,22 +29,22 @@ ext {
 dependencies {
     // Selenide for UI automation
     implementation "com.codeborne:selenide:${selenideVersion}"
-    
+
     // RestAssured for API automation
     implementation "io.rest-assured:rest-assured:${restAssuredVersion}"
     testImplementation "io.rest-assured:json-schema-validator:${restAssuredVersion}"
-    
+
     // TestNG for test framework
     testImplementation "org.testng:testng:${testngVersion}"
-    
+
     // Jackson for JSON handling
     implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
     implementation "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}"
-    
+
     // Logging
     implementation "org.slf4j:slf4j-api:${slf4jVersion}"
     implementation "ch.qos.logback:logback-classic:${logbackVersion}"
-    
+
     // Allure reporting
     testImplementation "io.qameta.allure:allure-testng:${allureVersion}"
     testImplementation "io.qameta.allure:allure-rest-assured:${allureVersion}"
@@ -54,9 +54,9 @@ test {
     useTestNG() {
         suites 'src/test/resources/testng.xml'
     }
-    
+
     systemProperty 'allure.results.directory', 'build/allure-results'
-    
+
     testLogging {
         events "passed", "skipped", "failed"
         exceptionFormat "full"
@@ -111,5 +111,18 @@ task runMixedTests(type: Test) {
         includeGroups 'mixed'
         testClassesDirs = sourceSets.test.output.classesDirs
         classpath = sourceSets.test.runtimeClasspath
+    }
+}
+
+// Task to run SauceDemo tests only
+task runSauceDemoTests(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/testng-saucedemo.xml'
+    }
+    systemProperty 'allure.results.directory', 'build/allure-results'
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+        showStandardStreams = true
     }
 }
