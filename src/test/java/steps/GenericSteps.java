@@ -32,20 +32,6 @@ public class GenericSteps {
         return this;
     }
 
-    @Step("Verify element is visible by ID: {id}")
-    public GenericSteps shouldBeVisibleById(String id) {
-        logger.info("Verifying element is visible by ID: {}", id);
-        $(id(id)).shouldBe(visible);
-        return this;
-    }
-
-    @Step("Click element by ID: {id}")
-    public GenericSteps clickElementById(String id) {
-        logger.info("Clicking element by ID: {}", id);
-        $(id(id)).click();
-        return this;
-    }
-
     @Step("Verify element contains text '{expectedText}': {locator}")
     public GenericSteps shouldHaveText(String locator, String expectedText) {
         logger.info("Verifying element contains text '{}': {}", expectedText, locator);
@@ -57,20 +43,6 @@ public class GenericSteps {
     public GenericSteps scrollToElement(String locator) {
         logger.info("Scrolling to element: {}", locator);
         $(locator).scrollTo();
-        return this;
-    }
-
-    @Step("Scroll to element by ID: {id}")
-    public GenericSteps scrollToElementById(String id) {
-        logger.info("Scrolling to element by ID: {}", id);
-        $(id(id)).scrollTo();
-        return this;
-    }
-
-    @Step("Wait for element to be visible: {locator}")
-    public GenericSteps waitForVisible(String locator) {
-        logger.info("Waiting for element to be visible: {}", locator);
-        $(locator).shouldBe(visible);
         return this;
     }
 

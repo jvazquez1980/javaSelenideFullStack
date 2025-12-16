@@ -77,17 +77,7 @@ gradle -version
 ./gradlew -version
 ```
 
-### 5. Clonar/Descargar el proyecto
-```bash
-# Si usas Git
-git clone <tu-repo>
-cd JavaSelenide
-
-# O simplemente navega al directorio del proyecto
-cd /Users/javiervt/Desktop/JavaSelenide
-```
-
-### 6. Construir el proyecto e instalar dependencias
+### 5. Construir el proyecto e instalar dependencias
 ```bash
 # Usando Gradle Wrapper (recomendado)
 ./gradlew build

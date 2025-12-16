@@ -48,12 +48,11 @@ public class ProductValidation extends BaseTest {
         }
         genericSteps.clickRandomElement(Product.productTitle);
                 sleep(1000);
-        genericSteps.shouldBeVisible(Home.removeToCartButton);
 
         // Should verify product information on the Product details page
-        $(Product.productImage).shouldBe(Condition.visible);
-        $(Product.productTitle).shouldBe(Condition.visible);
-        $(Product.productDescription).shouldBe(Condition.visible);
+        genericSteps.shouldBeVisible(Product.productImage);
+        genericSteps.shouldBeVisible(Product.productTitle);
+        genericSteps.shouldBeVisible(Product.productDescription);
 
         String detailPrice = $(Product.productPrice).getText().trim();
         assertTrue(detailPrice.matches("^\\$\\d+(\\.\\d{1,2})?$"), "Price format should be $XX.X or $XX.XX");

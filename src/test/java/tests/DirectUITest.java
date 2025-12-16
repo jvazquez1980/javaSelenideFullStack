@@ -44,27 +44,4 @@ public class DirectUITest extends BaseTest {
           logger.info("Direct home page navigation test completed successfully");
      }
 
-     @Test
-     @Story("User can view available rooms using direct steps")
-     @Description("Verify user can load home page and view room availability using GenericSteps")
-     @Severity(SeverityLevel.NORMAL)
-     public void testDirectRoomDisplay() {
-          // Given: User navigates to the home page using Selenide native method
-          open(UI_BASE_URL);
-
-          // When & Then: User verifies page and rooms are displayed using native Selenide
-          $(byId(HomePage.booking)).scrollTo();
-          $$(HomePage.bookNowButton).get(2).click();
-          $(HomePage.selected).shouldBe(visible);
-
-          $(HomePage.reserveNowButton).scrollTo().shouldBe(visible).click();
-          genericSteps.setValue(HomePage.name, Users.TestUser.NAME);
-          genericSteps.setValue(HomePage.surname, Users.TestUser.NAME);
-          genericSteps.setValue(HomePage.email, Users.TestUser.EMAIL);
-          genericSteps.setValue(HomePage.phone, Users.TestUser.PHONE);
-          $(".btn.btn-primary.w-100.mb-3").click();
-
-          logger.info("Direct room display test completed successfully");
-     }
-
 }

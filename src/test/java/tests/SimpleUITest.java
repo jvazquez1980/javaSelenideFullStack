@@ -9,6 +9,7 @@ import steps.HomePageSteps;
 
 @Epic("UI Testing")
 @Feature("Home Page Navigation")
+@Deprecated
 public class SimpleUITest extends BaseTest {
 
     private HomePageSteps homePageSteps;

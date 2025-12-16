@@ -1,4 +1,4 @@
-package tests.home;
+package tests.Home;
 
 import core.BaseTest;
 import data.Users;
@@ -31,9 +31,8 @@ public class ShortBy extends BaseTest {
         sauceSteps.standardLogin(Users.SauceDemoUser.USERNAME, Users.SauceDemoUser.PASSWORD);
 
         $$(SauceDemoPage.Home.productItem)
-            .filter(Condition.visible)
-            .shouldHave(CollectionCondition.sizeGreaterThan(0));
-
+                .filter(Condition.visible)
+                .shouldHave(CollectionCondition.sizeGreaterThan(0));
 
         int initialProductsCount = $$(SauceDemoPage.Home.productItem).size();
         logger.info("Initial product count: {}", initialProductsCount);

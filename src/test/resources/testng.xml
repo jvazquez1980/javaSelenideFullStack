@@ -9,14 +9,15 @@
             <class name="tests.SimpleUITest"/>
             <class name="tests.DirectUITest"/>
             <class name="tests.home.ShortBy"/>
+            <class name="tests.login.Login"/>
             <class name="tests.product.ProductPage"/>
             <class name="tests.product.ProductValidation"/>
         </classes>
     </test>
     <test name="APITests" preserve-order="true">
         <classes>
-            <class name="tests.ApiTesting"/>
-            <class name="tests.ApiSchema"/>
+            <class name="tests.api.ApiTesting"/>
+            <class name="tests.api.ApiSchema"/>
         </classes>
     </test>
 </suite>
