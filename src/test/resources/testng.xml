@@ -9,7 +9,8 @@
             <class name="tests.SimpleUITest"/>
             <class name="tests.DirectUITest"/>
             <class name="tests.home.ShortBy"/>
-            <class name="tests.product.productPage"/>
+            <class name="tests.product.ProductPage"/>
+            <class name="tests.product.ProductValidation"/>
         </classes>
     </test>
     <test name="APITests" preserve-order="true">

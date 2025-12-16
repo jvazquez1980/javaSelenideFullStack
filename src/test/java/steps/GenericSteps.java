@@ -97,14 +97,9 @@ public class GenericSteps {
     public GenericSteps clickRandomElement(String locator) {
         logger.info("Clicking random element: {}", locator);
         com.codeborne.selenide.ElementsCollection elements = com.codeborne.selenide.Selenide.$$(locator);
-        int size = elements.size();
-        if (size > 0) {
-            int randomIndex = new java.util.Random().nextInt(size);
-            logger.info("Clicking element at random index: {} out of {}", randomIndex, size);
-            elements.get(randomIndex).click();
-        } else {
-            logger.warn("No elements found for locator: {}", locator);
-        }
+        int randomIndex = new java.util.Random().nextInt(elements.size());
+        logger.info("Clicking element at random index: {} out of {}", randomIndex, elements.size());
+        elements.get(randomIndex).click();
         return this;
     }
 }

@@ -8,7 +8,8 @@ import org.testng.annotations.Test;
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 
-import pages.home.SauceDemoPage;
+import pages.home.SauceDemoPage.Home;
+import pages.home.SauceDemoPage.Product;
 import steps.GenericSteps;
 import steps.SauceSteps;
 
@@ -16,7 +17,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 @Epic("SauceDemo E2E Testing")
 @Feature("Product Details")
-public class productPage extends BaseTest {
+public class ProductPage extends BaseTest {
 
     private final SauceSteps sauceSteps = new SauceSteps();
     private final GenericSteps genericSteps = new GenericSteps();
@@ -30,15 +31,17 @@ public class productPage extends BaseTest {
 
         sauceSteps.standardLogin(Users.SauceDemoUser.USERNAME, Users.SauceDemoUser.PASSWORD);
 
-        genericSteps.shouldBeVisible(SauceDemoPage.Home.productItem);
+        genericSteps.shouldBeVisible(Home.productItem);
 
-        $$(SauceDemoPage.Product.productDetails)
+        $$(Product.productDetails)
                 .filter(Condition.visible)
                 .shouldHave(CollectionCondition.sizeGreaterThan(0));
 
-        genericSteps.clickRandomElement(SauceDemoPage.Product.productTitle);
+        genericSteps.clickRandomElement(Product.productTitle);
 
-        genericSteps.shouldBeVisible(SauceDemoPage.Product.productPrice);
+        genericSteps.shouldBeVisible(Product.productPrice);
+        genericSteps.clickElement(Home.addToCartButton);
+        genericSteps.shouldBeVisible(Home.removeToCartButton);
 
         logger.info("Product details navigation test completed successfully");
     }
