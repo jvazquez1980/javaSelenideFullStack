@@ -135,7 +135,14 @@ echo 'export JAVA_HOME="/opt/homebrew/opt/openjdk@11"' >> ~/.zshrc
 ```bash
 ./gradlew test --tests "tests.login.Login"
 ./gradlew test --tests "tests.api.*"
+
+# Ejecutar el test
+./gradlew test --tests "tests.Cart.CartAddProductTest"
+# Ejecutar con reporte Allure (recomendado para ver paso a paso)
+./gradlew test --tests "tests.Cart.CartAddProductTest" allureServe
 ```
+
+
 
 ## 📊 Reportes Allure
 
@@ -160,6 +167,7 @@ allure serve build/allure-results   # Usando CLI de Allure
 
 ### Reporte HTML básico de TestNG
 ```bash
+
 open build/reports/tests/test/index.html
 ```
 
