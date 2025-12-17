@@ -1,24 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+    <!-- Console with colors for better debugging visibility -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <pattern>%d{HH:mm:ss} %highlight(%-5level) %cyan(%logger{20}) - %msg%n</pattern>
         </encoder>
     </appender>
 
+    <!-- File appender for full logs -->
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>target/logs/automation.log</file>
+        <file>build/logs/automation.log</file>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
+    <!-- Application loggers -->
     <logger name="core" level="DEBUG"/>
     <logger name="pages" level="DEBUG"/>
     <logger name="steps" level="DEBUG"/>
     <logger name="api" level="DEBUG"/>
     <logger name="tests" level="DEBUG"/>
-    
+
+    <!-- Selenide internal logs (set to INFO to reduce noise, DEBUG for full details) -->
+    <logger name="com.codeborne.selenide" level="INFO"/>
+
+    <!-- Reduce Selenium noise -->
+    <logger name="org.openqa.selenium" level="WARN"/>
+    <logger name="io.netty" level="WARN"/>
+
     <root level="INFO">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>

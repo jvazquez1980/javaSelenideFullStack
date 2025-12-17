@@ -1,4 +1,4 @@
-package tests.Home;
+package tests.home;
 
 import core.BaseTest;
 import data.Users;

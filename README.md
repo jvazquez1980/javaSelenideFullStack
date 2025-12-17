@@ -113,71 +113,52 @@ echo 'export JAVA_HOME="/opt/homebrew/opt/openjdk@11"' >> ~/.zshrc
 
 ## 🧪 Ejecutar Tests
 
-### Ejecutar todos los tests
-```bash
-# Usando Gradle Wrapper (recomendado)
-./gradlew test
-
-# O usando Gradle global
-gradle test
-```
-
-### Ejecutar tests específicos
-```bash
-# Solo tests de UI
-./gradlew runUITests
-
-# Solo tests de API
-./gradlew runAPITests
-
-# Test completo End-to-End
-./gradlew runEndToEndTest
-
-# Ejecutar test específico por clase
-./gradlew test --tests "tests.EndToEndTest"
-
-# Ejecutar método específico
-./gradlew test --tests "tests.EndToEndTest.testCompleteEndToEndWorkflow"
-```
-
-### Ejecutar con TestNG XML (configuración por defecto)
+### Ejecutar todos los tests (descubrimiento automático)
 ```bash
 ./gradlew test
-
-
-# Ejecutar tests + generar reporte
-./gradlew clean test allureReport
-
-# Servir el reporte en el navegador
-allure serve build/allure-results
 ```
 
-## 📊 Reportes
-
-### Generar reporte Allure
+### Ejecutar usando testng.xml (orden definido)
 ```bash
-# Ejecutar tests y generar reporte
-./gradlew test allureReport
-
-# Abrir reporte en el navegador
-allure serve build/allure-results
-
-# O usar el plugin de Allure para Gradle
-./gradlew allureServe
+./gradlew runSuite
 ```
 
-### Ejecutar tests con histórico (recomendado)
+### Ejecutar tests por tipo
 ```bash
-# Preserva el histórico entre ejecuciones para ver tendencias
-./gradlew testWithHistory
+./gradlew runUITests        # Solo tests de UI
+./gradlew runAPITests       # Solo tests de API
+./gradlew runEndToEndTest   # Tests End-to-End
+./gradlew runSauceDemoTests # Tests de SauceDemo
+```
 
-# Abrir reporte con tendencias
-allure serve build/allure-results
+### Ejecutar test específico
+```bash
+./gradlew test --tests "tests.login.Login"
+./gradlew test --tests "tests.api.*"
+```
+
+## 📊 Reportes Allure
+
+### Ejecutar tests con reporte
+```bash
+./gradlew test allureServe
+```
+
+### Con histórico (recomendado para ver tendencias)
+```bash
+./gradlew testWithHistory allureServe
 ```
 
 > **Nota**: No uses `clean` si quieres mantener el histórico de ejecuciones.
 
-### Ver reporte HTML básico
+### Solo generar/ver reporte (sin ejecutar tests)
+```bash
+./gradlew allureReport              # Genera reporte
+./gradlew allureServe               # Genera y abre en navegador
+allure serve build/allure-results   # Usando CLI de Allure
+```
+
+### Reporte HTML básico de TestNG
 ```bash
 open build/reports/tests/test/index.html
 ```

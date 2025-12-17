@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="AutomationTestSuite" verbose="1">
+<suite name="AutomationTestSuite" verbose="1" configfailurepolicy="continue">
     <listeners>
         <listener class-name="core.AllureScreenshotListener"/>
     </listeners>
     <test name="UITests" preserve-order="true">
         <classes>
-            <class name="tests.SimpleUITest"/>
-            <class name="tests.DirectUITest"/>
+            <class name="tests.UiExamples.SolidPom"/>
+            <class name="tests.UiExamples.DirectUITest"/>
             <class name="tests.home.ShortBy"/>
             <class name="tests.login.Login"/>
             <class name="tests.product.ProductPage"/>

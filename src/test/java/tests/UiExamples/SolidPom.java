@@ -1,4 +1,4 @@
-package tests;
+package tests.UiExamples;
 
 import core.BaseTest;
 import data.Users;
@@ -10,7 +10,7 @@ import steps.HomePageSteps;
 @Epic("UI Testing")
 @Feature("Home Page Navigation")
 @Deprecated
-public class SimpleUITest extends BaseTest {
+public class SolidPom extends BaseTest {
 
     private HomePageSteps homePageSteps;
 

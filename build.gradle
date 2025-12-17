@@ -48,15 +48,26 @@ dependencies {
     // Allure reporting
     testImplementation "io.qameta.allure:allure-testng:${allureVersion}"
     testImplementation "io.qameta.allure:allure-rest-assured:${allureVersion}"
+    testImplementation "io.qameta.allure:allure-selenide:${allureVersion}"
 }
 
 test {
-    useTestNG() {
-        suites 'src/test/resources/testng.xml'
-    }
+    useTestNG()
 
     systemProperty 'allure.results.directory', 'build/allure-results'
 
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+    }
+}
+
+// Task to run tests using testng.xml suite file
+task runSuite(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/testng.xml'
+    }
+    systemProperty 'allure.results.directory', 'build/allure-results'
     testLogging {
         events "passed", "skipped", "failed"
         exceptionFormat "full"
@@ -124,5 +135,41 @@ task runSauceDemoTests(type: Test) {
         events "passed", "skipped", "failed"
         exceptionFormat "full"
         showStandardStreams = true
+    }
+}
+
+// Task to run tests preserving Allure history for trends
+task testWithHistory {
+    description = 'Runs tests preserving Allure history for trend reports'
+    group = 'verification'
+
+    doFirst {
+        // Backup history before test execution
+        def allureResultsDir = file('build/allure-results')
+        def historyDir = file('build/allure-results/history')
+        def historyBackup = file('build/allure-history-backup')
+
+        if (historyDir.exists()) {
+            copy {
+                from historyDir
+                into historyBackup
+            }
+        }
+    }
+
+    finalizedBy 'test'
+}
+
+// Restore history after test task
+test.doFirst {
+    def historyBackup = file('build/allure-history-backup')
+    def allureResultsDir = file('build/allure-results')
+
+    if (historyBackup.exists()) {
+        copy {
+            from historyBackup
+            into "${allureResultsDir}/history"
+        }
+        delete historyBackup
     }
 }

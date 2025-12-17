@@ -2,6 +2,8 @@ package core;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +39,6 @@ public class DriverManager {
         Configuration.browserSize = "1920x1080";
         Configuration.headless = false;
 
-
         // Configure Selenide timeouts
         Configuration.timeout = 5000; // 5 seconds timeout for element finding
         Configuration.pollingInterval = 100; // Check every 100ms
@@ -45,8 +46,20 @@ public class DriverManager {
         Configuration.fastSetValue = true;
         Configuration.clickViaJs = false;
 
+        // Enable detailed logging for debugging (similar to Cypress)
+        Configuration.reportsFolder = "build/reports/tests";
+        Configuration.savePageSource = false;
+
+        // Add Allure-Selenide listener for step-by-step logging
+        SelenideLogger.addListener("AllureSelenide",
+                new AllureSelenide()
+                        .screenshots(true)
+                        .savePageSource(false)
+                        .includeSelenideSteps(true));
+
         // Configure Chrome options properly for Selenide 6.x
-        System.setProperty("chromeoptions.args", "--no-sandbox,--disable-dev-shm-usage,--disable-blink-features=AutomationControlled");
+        System.setProperty("chromeoptions.args",
+                "--no-sandbox,--disable-dev-shm-usage,--disable-blink-features=AutomationControlled");
 
         logger.info("Selenide configured successfully");
     }

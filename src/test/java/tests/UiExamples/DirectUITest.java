@@ -1,4 +1,4 @@
-package tests;
+package tests.UiExamples;
 
 import core.BaseTest;
 import data.Users;
