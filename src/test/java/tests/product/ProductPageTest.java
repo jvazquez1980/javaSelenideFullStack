@@ -17,7 +17,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 @Epic("SauceDemo E2E Testing")
 @Feature("Product Details")
-public class ProductPage extends BaseTest {
+public class ProductPageTest extends BaseTest {
 
     private final SauceSteps sauceSteps = new SauceSteps();
     private final GenericSteps genericSteps = new GenericSteps();

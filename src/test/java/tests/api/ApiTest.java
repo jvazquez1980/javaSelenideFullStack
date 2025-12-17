@@ -13,7 +13,7 @@ import static org.testng.Assert.*;
 
 @Epic("API Testing")
 @Feature("Posts Management API")
-public class ApiTesting extends ApiBaseTest {
+public class ApiTest extends ApiBaseTest {
 
     private BookingClient bookingClient;
 
@@ -54,8 +54,7 @@ public class ApiTesting extends ApiBaseTest {
         BookingRequest createRequest = new BookingRequest(
                 Users.ApiTestData.POST_TITLE,
                 Users.ApiTestData.POST_BODY,
-                Users.ApiTestData.USER_ID
-        );
+                Users.ApiTestData.USER_ID);
 
         Response createResponse = bookingClient.createPost(createRequest);
         bookingClient.verifyStatusCode(createResponse, 201);
@@ -76,8 +75,7 @@ public class ApiTesting extends ApiBaseTest {
         BookingRequest updateRequest = new BookingRequest(
                 Users.ApiTestData.UPDATED_POST_TITLE,
                 Users.ApiTestData.UPDATED_POST_BODY,
-                Users.ApiTestData.USER_ID
-        );
+                Users.ApiTestData.USER_ID);
 
         Response updateResponse = bookingClient.updatePost(validPostId, updateRequest);
         bookingClient.verifyStatusCodeIsOneOf(updateResponse, 200, 201);

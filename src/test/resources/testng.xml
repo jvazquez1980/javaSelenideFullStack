@@ -6,18 +6,18 @@
     </listeners>
     <test name="UITests" preserve-order="true">
         <classes>
-            <class name="tests.UiExamples.SolidPom"/>
+            <class name="tests.UiExamples.SolidPomTest"/>
             <class name="tests.UiExamples.DirectUITest"/>
-            <class name="tests.home.ShortBy"/>
-            <class name="tests.login.Login"/>
-            <class name="tests.product.ProductPage"/>
-            <class name="tests.product.ProductValidation"/>
+            <class name="tests.home.ShortByTest"/>
+            <class name="tests.login.LoginTest"/>
+            <class name="tests.product.ProductPageTest"/>
+            <class name="tests.product.ProductValidationTest"/>
         </classes>
     </test>
     <test name="APITests" preserve-order="true">
         <classes>
-            <class name="tests.api.ApiTesting"/>
-            <class name="tests.api.ApiSchema"/>
+            <class name="tests.api.ApiTest"/>
+            <class name="tests.api.ApiSchemaTest"/>
         </classes>
     </test>
 </suite>

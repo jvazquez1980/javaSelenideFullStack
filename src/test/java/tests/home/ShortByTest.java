@@ -17,7 +17,7 @@ import static com.codeborne.selenide.Selenide.open;
 
 @Epic("SauceDemo E2E Testing")
 @Feature("Product Sorting")
-public class ShortBy extends BaseTest {
+public class ShortByTest extends BaseTest {
 
     private final SauceSteps sauceSteps = new SauceSteps();
 

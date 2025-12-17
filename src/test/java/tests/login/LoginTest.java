@@ -12,7 +12,7 @@ import static org.testng.Assert.assertTrue;
 
 @Epic("SauceDemo E2E Testing")
 @Feature("Login and Navigation")
-public class Login extends BaseTest {
+public class LoginTest extends BaseTest {
 
     private final SauceSteps sauceSteps = new SauceSteps();
 

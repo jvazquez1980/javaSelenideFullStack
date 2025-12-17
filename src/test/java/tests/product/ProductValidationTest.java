@@ -19,7 +19,7 @@ import static org.testng.Assert.assertTrue;
 
 @Epic("SauceDemo E2E Testing")
 @Feature("Product Validation")
-public class ProductValidation extends BaseTest {
+public class ProductValidationTest extends BaseTest {
 
     private final SauceSteps sauceSteps = new SauceSteps();
     private final GenericSteps genericSteps = new GenericSteps();
@@ -47,7 +47,7 @@ public class ProductValidation extends BaseTest {
             logger.info("Product {} validated successfully", i + 1);
         }
         genericSteps.clickRandomElement(Product.productTitle);
-                sleep(1000);
+        sleep(1000);
 
         // Should verify product information on the Product details page
         genericSteps.shouldBeVisible(Product.productImage);

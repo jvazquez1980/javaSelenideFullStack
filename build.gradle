@@ -56,6 +56,15 @@ test {
 
     systemProperty 'allure.results.directory', 'build/allure-results'
 
+    // Configura el patrón de nombres de clases de test
+    // Por defecto Gradle busca *Test, *Tests, Test*
+    // Añadimos soporte para *.test (archivos NombreTest.java o Nombre.test.java)
+    filter {
+        includeTestsMatching "*Test"
+        includeTestsMatching "*Tests"
+        includeTestsMatching "*.test"
+    }
+
     testLogging {
         events "passed", "skipped", "failed"
         exceptionFormat "full"

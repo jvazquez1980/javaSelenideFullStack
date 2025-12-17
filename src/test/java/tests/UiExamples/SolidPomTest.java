@@ -10,7 +10,7 @@ import steps.HomePageSteps;
 @Epic("UI Testing")
 @Feature("Home Page Navigation")
 @Deprecated
-public class SolidPom extends BaseTest {
+public class SolidPomTest extends BaseTest {
 
     private HomePageSteps homePageSteps;
 

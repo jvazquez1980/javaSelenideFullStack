@@ -10,7 +10,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 
 @Epic("API Testing")
 @Feature("Schema Validation")
-public class ApiSchema extends ApiBaseTest {
+public class ApiSchemaTest extends ApiBaseTest {
 
     private BookingClient bookingClient;
 
