@@ -62,4 +62,30 @@ public class SauceSteps {
         logger.info("Clicked on first product");
         return this;
     }
+
+    @Step("Click product title from item with Remove button")
+    public SauceSteps clickProductWithRemoveButton() {
+        // Espera que el botón Remove sea visible, luego busca el producto y click en
+        // título
+        $(SauceDemoPage.Home.removeToCartButton).shouldBe(visible);
+        $$(SauceDemoPage.Home.productItem)
+                .findBy(text("Remove"))
+                .$(SauceDemoPage.Product.productTitle).click();
+        logger.info("Clicked on product that has Remove button");
+        return this;
+    }
+
+    @Step("Navigate to cart")
+    public SauceSteps navigateToCart() {
+        $(SauceDemoPage.Cart.cartWithProducts).click();
+        logger.info("Navigated to cart");
+        return this;
+    }
+
+    @Step("Verify checkout button is visible")
+    public SauceSteps verifyCheckoutVisible() {
+        $(SauceDemoPage.Checkout.checkoutButton).shouldBe(visible);
+        logger.info("Checkout button is visible");
+        return this;
+    }
 }
