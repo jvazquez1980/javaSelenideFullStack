@@ -2,35 +2,43 @@ package core;
 
 import io.qameta.allure.Step;
 import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
+import io.restassured.http.ContentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeClass;
 
 public abstract class ApiBaseTest {
     protected static final Logger logger = LoggerFactory.getLogger(ApiBaseTest.class);
-    
+
     // API Test URL
     protected static final String API_BASE_URL = "https://jsonplaceholder.typicode.com";
-    
-    @BeforeSuite
+
+    @BeforeClass(alwaysRun = true)
     public void setupApiSuite() {
         logger.info("Setting up API test suite...");
         configureRestAssured();
         logger.info("API test suite setup completed");
     }
-    
+
     private void configureRestAssured() {
         RestAssured.baseURI = API_BASE_URL;
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-        
-        // Add logging filters for better debugging
-        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
-        
+
+        // Add default headers to avoid 403 errors from CDN/WAF
+        RestAssured.requestSpecification = new RequestSpecBuilder()
+                .setContentType(ContentType.JSON)
+                .addHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) RestAssured-Test")
+                .addHeader("Accept", "application/json")
+                .addFilter(new RequestLoggingFilter())
+                .addFilter(new ResponseLoggingFilter())
+                .build();
+
         logger.info("RestAssured configured with base URI: {}", API_BASE_URL);
     }
-    
+
     @Step("Wait for {seconds} seconds")
     protected void waitFor(int seconds) {
         try {
@@ -40,7 +48,7 @@ public abstract class ApiBaseTest {
             logger.error("Wait interrupted", e);
         }
     }
-    
+
     @Step("Log API test step: {message}")
     protected void logApiStep(String message) {
         logger.info("API Test Step: {}", message);

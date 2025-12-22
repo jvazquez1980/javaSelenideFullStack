@@ -17,7 +17,7 @@ public class ApiTest extends ApiBaseTest {
 
     private BookingClient bookingClient;
 
-    @Test(priority = 1)
+    @Test(groups = "api")
     @Story("API endpoints work correctly")
     @Description("Test that verifies API functionality for posts management")
     @Severity(SeverityLevel.CRITICAL)
