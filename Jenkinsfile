@@ -1,11 +1,9 @@
 pipeline {
     agent any
 
-    tools {
-        jdk 'JDK11'
-    }
-
     environment {
+        JAVA_HOME = '/opt/homebrew/Cellar/openjdk@11/11.0.29/libexec/openjdk.jdk/Contents/Home'
+        PATH = "${JAVA_HOME}/bin:${env.PATH}"
         GRADLE_OPTS = '-Dorg.gradle.daemon=false'
     }
 
