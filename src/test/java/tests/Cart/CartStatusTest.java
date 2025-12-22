@@ -5,10 +5,7 @@ import data.Users;
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
 
-import pages.home.SauceDemoPage;
-import pages.home.SauceDemoPage.Cart;
-import pages.home.SauceDemoPage.Home;
-import pages.home.SauceDemoPage.Product;
+import pages.home.SauceDemoPage.*;
 import steps.GenericSteps;
 import steps.SauceSteps;
 
@@ -27,7 +24,7 @@ public class CartStatusTest extends BaseTest {
     @Description("Verify cart status shows correct count across Products page, Product details, and Cart page")
     @Severity(SeverityLevel.CRITICAL)
     public void testCartStatusAcrossPages() {
-        open(UI_BASE_URL2);
+        open(UI_BASE_URL);
         sauceSteps.standardLogin(Users.SauceDemoUser.USERNAME, Users.SauceDemoUser.PASSWORD);
 
         // Add product from Products page
@@ -45,8 +42,9 @@ public class CartStatusTest extends BaseTest {
         sauceSteps.verifyCartCount(1);
 
         // Navigate to Cart and verify status
-        $(SauceDemoPage.Cart.cartWithProducts).click();
-        $(SauceDemoPage.Checkout.checkoutButton).shouldBe(visible);
+        genericSteps.clickElement(Cart.cartWithProducts);
+        genericSteps.shouldBeVisible(Checkout.checkoutButton);
+
         sauceSteps.verifyCartCount(1);
 
         logger.info("Cart status test completed successfully");

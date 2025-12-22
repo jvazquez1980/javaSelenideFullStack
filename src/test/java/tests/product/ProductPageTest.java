@@ -27,7 +27,7 @@ public class ProductPageTest extends BaseTest {
     @Description("Navigate to Products page and access product details")
     @Severity(SeverityLevel.NORMAL)
     public void testProductDetailsNavigation() {
-        open(UI_BASE_URL2);
+        open(UI_BASE_URL);
 
         sauceSteps.standardLogin(Users.SauceDemoUser.USERNAME, Users.SauceDemoUser.PASSWORD);
 

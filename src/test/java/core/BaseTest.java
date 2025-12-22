@@ -11,8 +11,7 @@ public abstract class BaseTest {
     protected static final Logger logger = LoggerFactory.getLogger(BaseTest.class);
 
     // UI Test URL
-    protected static final String UI_BASE_URL = "https://automationintesting.online/";
-    protected static final String UI_BASE_URL2 = "https://www.saucedemo.com/";
+    protected static final String UI_BASE_URL = "https://www.saucedemo.com/";
 
     @BeforeSuite
     public void setupSuite() {
@@ -36,7 +35,6 @@ public abstract class BaseTest {
         DriverManager.quitDriver();
         logger.info("Test teardown completed");
     }
-
 
     @Step("Navigate to URL: {url}")
     protected void navigateToUrl(String url) {

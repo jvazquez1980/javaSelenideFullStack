@@ -21,7 +21,7 @@ public class LoginTest extends BaseTest {
     @Description("Verify user can login with valid credentials, land on inventory page, see cart icon, and open burger menu")
     @Severity(SeverityLevel.CRITICAL)
     public void testSauceDemoLogin() {
-        open(UI_BASE_URL2);
+        open(UI_BASE_URL);
 
         sauceSteps.standardLogin(Users.SauceDemoUser.USERNAME, Users.SauceDemoUser.PASSWORD);
 

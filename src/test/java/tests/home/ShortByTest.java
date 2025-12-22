@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 
-import pages.home.SauceDemoPage;
+import pages.home.SauceDemoPage.*;
 import steps.SauceSteps;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -26,23 +26,23 @@ public class ShortByTest extends BaseTest {
     @Description("Verify products can be sorted correctly by A-Z, Z-A, price low-high, and price high-low")
     @Severity(SeverityLevel.NORMAL)
     public void testProductSorting() {
-        open(UI_BASE_URL2);
+        open(UI_BASE_URL);
 
         sauceSteps.standardLogin(Users.SauceDemoUser.USERNAME, Users.SauceDemoUser.PASSWORD);
 
-        $$(SauceDemoPage.Home.productItem)
+        $$(Home.productItem)
                 .filter(Condition.visible)
                 .shouldHave(CollectionCondition.sizeGreaterThan(0));
 
-        int initialProductsCount = $$(SauceDemoPage.Home.productItem).size();
+        int initialProductsCount = $$(Home.productItem).size();
         logger.info("Initial product count: {}", initialProductsCount);
 
         String[] sortOptions = { "az", "za", "lohi", "hilo" };
 
         for (String sortValue : sortOptions) {
             logger.info("Testing sort option: {}", sortValue);
-            $(SauceDemoPage.Home.shortSelect).selectOptionByValue(sortValue);
-            $$(SauceDemoPage.Home.productItem)
+            $(Home.shortSelect).selectOptionByValue(sortValue);
+            $$(Home.productItem)
                     .shouldHave(com.codeborne.selenide.CollectionCondition.size(initialProductsCount));
         }
 

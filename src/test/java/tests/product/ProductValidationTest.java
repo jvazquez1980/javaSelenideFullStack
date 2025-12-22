@@ -29,7 +29,7 @@ public class ProductValidationTest extends BaseTest {
     @Description("Verify product information on Products page and Product details page")
     @Severity(SeverityLevel.CRITICAL)
     public void testProductValidation() {
-        open(UI_BASE_URL2);
+        open(UI_BASE_URL);
         sauceSteps.standardLogin(Users.SauceDemoUser.USERNAME, Users.SauceDemoUser.PASSWORD);
 
         genericSteps.shouldBeVisible(Home.productList);
