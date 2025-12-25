@@ -21,6 +21,10 @@ public class DriverManager {
 
     public static void initializeDriver() {
         logger.info("Configuring Selenide...");
+
+        // Increase Selenium Manager timeout for slow networks/ARM environments
+        System.setProperty("SE_MANAGER_TIMEOUT", "180");
+
         ChromeOptions options = new ChromeOptions();
         Map<String, Object> prefs = new HashMap<>();
 
@@ -41,6 +45,9 @@ public class DriverManager {
             options.addArguments("--disable-dev-shm-usage");
             options.addArguments("--disable-gpu");
             options.addArguments("--window-size=1920,1080");
+            options.addArguments("--disable-extensions");
+            options.addArguments("--disable-software-rasterizer");
+            options.addArguments("--disable-setuid-sandbox");
 
             // Use Chromium binary if available (Docker environment)
             String chromeBin = System.getenv("CHROME_BIN");
