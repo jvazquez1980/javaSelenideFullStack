@@ -48,6 +48,8 @@ public class DriverManager {
             options.addArguments("--disable-extensions");
             options.addArguments("--disable-software-rasterizer");
             options.addArguments("--disable-setuid-sandbox");
+            options.addArguments("--single-process");
+            options.addArguments("--disable-web-security");
 
             // Use Chromium binary if available (Docker environment)
             String chromeBin = System.getenv("CHROME_BIN");
@@ -55,6 +57,14 @@ public class DriverManager {
                 options.setBinary(chromeBin);
                 logger.info("Using Chromium binary: {}", chromeBin);
             }
+
+            // Set ChromeDriver path if available
+            String chromeDriver = System.getenv("CHROMEDRIVER");
+            if (chromeDriver != null && !chromeDriver.isEmpty()) {
+                System.setProperty("webdriver.chrome.driver", chromeDriver);
+                logger.info("Using ChromeDriver: {}", chromeDriver);
+            }
+
             logger.info("Running in HEADLESS mode");
         }
 
