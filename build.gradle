@@ -55,6 +55,7 @@ test {
     useTestNG()
 
     systemProperty 'allure.results.directory', 'build/allure-results'
+    systemProperty 'selenide.headless', System.getProperty('selenide.headless', 'false')
 
     // Configura el patrón de nombres de clases de test
     // Por defecto Gradle busca *Test, *Tests, Test*

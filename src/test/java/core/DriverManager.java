@@ -37,7 +37,7 @@ public class DriverManager {
         // Configure Selenide - let it handle WebDriver creation
         Configuration.browser = "chrome";
         Configuration.browserSize = "1920x1080";
-        Configuration.headless = false;
+        Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless", "false"));
 
         // Configure Selenide timeouts
         Configuration.timeout = 5000; // 5 seconds timeout for element finding
