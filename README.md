@@ -7,28 +7,39 @@ Este proyecto es un framework de automatización completo que combina **Java**, 
 ```
 src/test/java
 ├── core
-│   ├── DriverManager.java      # Gestión del WebDriver
-│   └── BaseTest.java          # Clase base para todos los tests
+│   ├── DriverManager.java              # Gestión del WebDriver
+│   ├── BaseTest.java                   # Clase base para tests UI
+│   ├── ApiBaseTest.java                # Clase base para tests API
+│   └── AllureScreenshotListener.java   # Listener para capturas en Allure
 ├── pages
-│   ├── home
-│   │   └── HomePage.java      # Page Object para la página principal
-│   └── login
-│       └── LoginPage.java     # Page Object para login
+│   └── home
+│       └── SauceDemoPage.java          # Page Object para SauceDemo
 ├── steps
-│   ├── LoginSteps.java        # Steps para funcionalidad de login
-│   └── BookingSteps.java      # Steps para funcionalidad de booking
+│   ├── SauceSteps.java                 # Steps para SauceDemo
+│   └── GenericSteps.java               # Steps genéricos reutilizables
 ├── api
 │   ├── client
-│   │   └── BookingClient.java # Cliente API con RestAssured
+│   │   └── BookingClient.java          # Cliente API con RestAssured
 │   └── models
-│       ├── BookingRequest.java # Modelo para requests
-│       └── BookingResponse.java # Modelo para responses
+│       ├── BookingRequest.java         # Modelo para requests
+│       └── BookingResponse.java        # Modelo para responses
 ├── data
-│   └── Users.java             # Datos de prueba
+│   └── Users.java                      # Datos de prueba
 ├── utils
-│   └── JsonUtils.java         # Utilidades para JSON
+│   └── JsonUtils.java                  # Utilidades para JSON
 └── tests
-    └── EndToEndTest.java      # Tests End-to-End
+    ├── login
+    │   └── LoginTest.java              # Tests de login
+    ├── home
+    │   └── ShortByTest.java            # Tests de ordenamiento
+    ├── product
+    │   ├── ProductPageTest.java        # Tests de página de producto
+    │   └── ProductValidationTest.java  # Tests de validación de producto
+    ├── Cart
+    │   └── CartStatusTest.java         # Tests del carrito
+    └── api
+        ├── ApiTest.java                # Tests CRUD de API
+        └── ApiSchemaTest.java          # Tests de validación de schema
 ```
 
 ## 🚀 Sitios de Prueba
@@ -142,6 +153,16 @@ echo 'export JAVA_HOME="/opt/homebrew/opt/openjdk@11"' >> ~/.zshrc
 ./gradlew test --tests "tests.Cart.CartAddProductTest" allureServe
 ```
 
+### Ejecutar tests en modo headless
+```bash
+# Modo headless (sin interfaz gráfica) - ideal para CI/CD
+./gradlew test -Dselenide.headless=true
+
+# Combinar con tipos específicos
+./gradlew runUITests -Dselenide.headless=true
+./gradlew runSauceDemoTests -Dselenide.headless=true
+```
+
 
 
 ## 📊 Reportes Allure
@@ -176,7 +197,66 @@ open build/reports/tests/test/index.html
 - **Reportes Allure**: `build/reports/allure-report/allureReport/index.html`
 - **Reportes TestNG**: `build/reports/tests/test/index.html`
 
-## 🔧 Configuración Personalizada
+## � CI/CD - Jenkins Pipeline
+
+Este proyecto incluye un pipeline de Jenkins configurado para ejecución automática de tests.
+
+### Configuración del Pipeline
+
+El pipeline está definido en `Jenkinsfile` y ejecuta las siguientes etapas:
+
+1. **Checkout**: Clona el repositorio desde GitHub
+2. **Build**: Compila el código de tests (`./gradlew clean compileTestJava`)
+3. **Run Tests**: Ejecuta todos los tests en modo headless
+4. **Reports**: Genera reportes Allure, TestNG y JUnit
+
+### Variables de Entorno
+
+```groovy
+JAVA_HOME = '/opt/homebrew/Cellar/openjdk@11/11.0.29/libexec/openjdk.jdk/Contents/Home'
+PATH = "${JAVA_HOME}/bin:${env.PATH}"
+GRADLE_OPTS = '-Dorg.gradle.daemon=false'
+```
+
+### Ejecución en Jenkins
+
+Los tests se ejecutan automáticamente en **modo headless** (sin interfaz gráfica):
+
+```bash
+./gradlew test -Dselenide.headless=true
+```
+
+**Ventajas del modo headless:**
+- ✅ Más rápido (sin renderizado de UI)
+- ✅ Menor consumo de recursos
+- ✅ Ideal para servidores CI/CD sin display
+- ✅ Ejecución en paralelo sin conflictos
+
+### Reportes Generados
+
+El pipeline genera automáticamente:
+
+- **Allure Report**: Reportes interactivos con pasos detallados
+- **TestNG Report**: Reporte HTML básico en `build/reports/tests/test/index.html`
+- **JUnit XML**: Resultados en formato XML para integración con Jenkins
+
+### Configuración Local vs Jenkins
+
+| Aspecto | Local | Jenkins |
+|---------|-------|---------|
+| **Modo** | Normal (con UI) | Headless |
+| **ChromeDriver** | Auto-descarga | Auto-descarga |
+| **Reportes** | Manual (`allureServe`) | Automático |
+| **Limpieza** | Manual | Automática (`cleanWs()`) |
+
+### Trigger del Pipeline
+
+El pipeline se puede ejecutar:
+- **Manual**: Desde la interfaz de Jenkins
+- **Automático**: Configurando webhooks en GitHub (push/PR)
+- **Programado**: Usando cron syntax en Jenkins
+
+## �� Configuración Personalizada
 
 ### Modificar configuración del navegador
 Edita `src/test/java/core/DriverManager.java`:
@@ -207,7 +287,6 @@ protected static final String API_BASE_URL = "tu-url-api";
 
 ### Test End-to-End Incluye:
 1. **UI Navigation**: Navegación por el sistema de booking
-2. **Admin Login**: Funcionalidad de login de administrador
 3. **API Operations**: Operaciones CRUD en la API
 4. **Complete Workflow**: Flujo completo UI + API
 
@@ -216,7 +295,6 @@ protected static final String API_BASE_URL = "tu-url-api";
 - **Test User**: Datos generados dinámicamente
 - **API Data**: Posts de prueba en JSONPlaceholder
 
-## 🐛 Troubleshooting
 
 ### Error: ChromeDriver not found
 ```bash
@@ -272,6 +350,4 @@ curl https://jsonplaceholder.typicode.com/posts/1
 3. Documentar cambios importantes
 4. Usar logging apropiado
 
-## 📄 Licencia
 
-Este proyecto es para propósitos educativos y de demostración.
