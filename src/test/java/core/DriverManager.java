@@ -33,11 +33,29 @@ public class DriverManager {
 
         options.setExperimentalOption("prefs", prefs);
 
+        // Headless/Docker mode configuration
+        boolean isHeadless = Boolean.parseBoolean(System.getProperty("selenide.headless", "false"));
+        if (isHeadless) {
+            options.addArguments("--headless=new");
+            options.addArguments("--no-sandbox");
+            options.addArguments("--disable-dev-shm-usage");
+            options.addArguments("--disable-gpu");
+            options.addArguments("--window-size=1920,1080");
+
+            // Use Chromium binary if available (Docker environment)
+            String chromeBin = System.getenv("CHROME_BIN");
+            if (chromeBin != null && !chromeBin.isEmpty()) {
+                options.setBinary(chromeBin);
+                logger.info("Using Chromium binary: {}", chromeBin);
+            }
+            logger.info("Running in HEADLESS mode");
+        }
+
         Configuration.browserCapabilities = options;
         // Configure Selenide - let it handle WebDriver creation
         Configuration.browser = "chrome";
         Configuration.browserSize = "1920x1080";
-        Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless", "false"));
+        Configuration.headless = isHeadless;
 
         // Configure Selenide timeouts
         Configuration.timeout = 5000; // 5 seconds timeout for element finding
