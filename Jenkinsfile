@@ -2,24 +2,30 @@ pipeline {
     agent any
 
     environment {
-        PATH = "/usr/local/bin:/usr/bin:/bin:${env.PATH}"
+        JAVA_HOME = '/opt/homebrew/Cellar/openjdk@11/11.0.29/libexec/openjdk.jdk/Contents/Home'
+        PATH = "${JAVA_HOME}/bin:${env.PATH}"
         GRADLE_OPTS = '-Dorg.gradle.daemon=false'
     }
 
     stages {
-        stage('Build Docker Image') {
+        stage('Checkout') {
             steps {
-                sh 'docker build -t selenide-tests .'
+                checkout scm
             }
         }
 
-        stage('Run Tests in Docker') {
+        stage('Build') {
             steps {
-                sh 'docker run --rm selenide-tests'
+                sh './gradlew clean compileTestJava'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                sh './gradlew test -Dselenide.headless=true'
             }
             post {
                 always {
-                    sh 'docker run --rm -v $(pwd)/build:/app/build selenide-tests ./gradlew allureReport --no-daemon || true'
                     allure includeProperties: false, jdk: '', results: [[path: 'build/allure-results']]
                 }
             }

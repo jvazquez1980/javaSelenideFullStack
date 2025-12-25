@@ -21,10 +21,6 @@ public class DriverManager {
 
     public static void initializeDriver() {
         logger.info("Configuring Selenide...");
-
-        // Increase Selenium Manager timeout for slow networks/ARM environments
-        System.setProperty("SE_MANAGER_TIMEOUT", "180");
-
         ChromeOptions options = new ChromeOptions();
         Map<String, Object> prefs = new HashMap<>();
 
@@ -37,35 +33,11 @@ public class DriverManager {
 
         options.setExperimentalOption("prefs", prefs);
 
-        // Headless/Docker mode configuration
-        boolean isHeadless = Boolean.parseBoolean(System.getProperty("selenide.headless", "false"));
-        if (isHeadless) {
-            options.addArguments("--headless=new");
-            options.addArguments("--no-sandbox");
-            options.addArguments("--disable-dev-shm-usage");
-            options.addArguments("--disable-gpu");
-            options.addArguments("--window-size=1920,1080");
-            options.addArguments("--disable-extensions");
-            options.addArguments("--disable-software-rasterizer");
-            options.addArguments("--disable-setuid-sandbox");
-            options.addArguments("--single-process");
-            options.addArguments("--disable-web-security");
-
-            // Use Chromium binary if available (Docker environment)
-            String chromeBin = System.getenv("CHROME_BIN");
-            if (chromeBin != null && !chromeBin.isEmpty()) {
-                options.setBinary(chromeBin);
-                logger.info("Using Chromium binary: {}", chromeBin);
-            }
-
-            logger.info("Running in HEADLESS mode");
-        }
-
         Configuration.browserCapabilities = options;
         // Configure Selenide - let it handle WebDriver creation
         Configuration.browser = "chrome";
         Configuration.browserSize = "1920x1080";
-        Configuration.headless = isHeadless;
+        Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless", "false"));
 
         // Configure Selenide timeouts
         Configuration.timeout = 5000; // 5 seconds timeout for element finding
