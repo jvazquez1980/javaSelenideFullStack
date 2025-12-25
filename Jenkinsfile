@@ -7,6 +7,7 @@ pipeline {
     }
 
     environment {
+        PATH = "/usr/local/bin:/usr/bin:/bin:${env.PATH}"
         GRADLE_OPTS = '-Dorg.gradle.daemon=false'
     }
 
