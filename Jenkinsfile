@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        dockerfile {
-            filename 'Dockerfile'
-            args '-u root'
-        }
-    }
+    agent any
 
     environment {
         PATH = "/usr/local/bin:/usr/bin:/bin:${env.PATH}"
@@ -12,18 +7,19 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
-                sh './gradlew clean compileTestJava --no-daemon'
+                sh 'docker build -t selenide-tests .'
             }
         }
 
-        stage('Run Tests') {
+        stage('Run Tests in Docker') {
             steps {
-                sh './gradlew test -Dselenide.headless=true --no-daemon'
+                sh 'docker run --rm selenide-tests'
             }
             post {
                 always {
+                    sh 'docker run --rm -v $(pwd)/build:/app/build selenide-tests ./gradlew allureReport --no-daemon || true'
                     allure includeProperties: false, jdk: '', results: [[path: 'build/allure-results']]
                 }
             }
