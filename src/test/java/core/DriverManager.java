@@ -58,13 +58,6 @@ public class DriverManager {
                 logger.info("Using Chromium binary: {}", chromeBin);
             }
 
-            // Set ChromeDriver path if available
-            String chromeDriver = System.getenv("CHROMEDRIVER");
-            if (chromeDriver != null && !chromeDriver.isEmpty()) {
-                System.setProperty("webdriver.chrome.driver", chromeDriver);
-                logger.info("Using ChromeDriver: {}", chromeDriver);
-            }
-
             logger.info("Running in HEADLESS mode");
         }
 
