@@ -13,8 +13,7 @@ import pages.home.SauceDemoPage.Cart;
 import steps.GenericSteps;
 import steps.SauceSteps;
 
-import static com.codeborne.selenide.Selenide.$$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 @Epic("SauceDemo E2E Testing")
 @Feature("Product Details")
@@ -41,6 +40,12 @@ public class CheckoutTest extends BaseTest {
         genericSteps.clickElement(Cart.cartWithProducts);
         genericSteps.shouldBeVisible(Home.removeToCartButton);
 
+        genericSteps.clickElement(Checkout.checkoutButton);
+
+        // Count values
+        SauceSteps.verifyCartCount(1);
+        genericSteps.shouldBeVisible(Product.productDescription);
+        genericSteps.shouldBeVisible(Product.productTitle);
 
         logger.info("Product details navigation test completed successfully");
     }

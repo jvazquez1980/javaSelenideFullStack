@@ -8,7 +8,6 @@ import org.testng.annotations.Test;
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 
-import pages.home.SauceDemoPage;
 import pages.home.SauceDemoPage.Home;
 import pages.home.SauceDemoPage.Product;
 import steps.GenericSteps;
@@ -44,15 +43,6 @@ public class ProductPageTest extends BaseTest {
         genericSteps.clickElement(Home.addToCartButton);
         genericSteps.shouldBeVisible(Home.removeToCartButton);
 
-        genericSteps.clickElement(SauceDemoPage.Checkout.checkoutButton);
-        genericSteps.clickElement(SauceDemoPage.Checkout.checkoutButton);
-
-        // Count values
-        int productCount = $$(home.productItem).size();
-        $(cart.cartWithProducts).shouldHave(text(String.valueOf(productCount)));
-        genericSteps.shouldBeVisible(Product.productDescription);
-        genericSteps.shouldBeVisible(Product.productTitle);
-
-        logger.info("Chekout process has been donde correctly");
+        logger.info("Product details navigation test completed successfully");
     }
 }
