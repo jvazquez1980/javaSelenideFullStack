@@ -88,4 +88,48 @@ public class SauceSteps {
         logger.info("Checkout button is visible");
         return this;
     }
+
+    @Step("Verify cart badge matches product count on page")
+    public static void verifyCartBadgeMatchesProductCount() {
+        int productCount = $$(SauceDemoPage.Home.productItem).size();
+        $(SauceDemoPage.Cart.cartWithProducts).shouldHave(text(String.valueOf(productCount)));
+        logger.info("Cart badge matches product count: {}", productCount);
+    }
+
+    @Step("Fill checkout form with firstName: {firstName}, lastName: {lastName}, zipCode: {zipCode}")
+    public SauceSteps fillCheckoutForm(String firstName, String lastName, String zipCode) {
+        logger.info("Filling checkout form");
+        $(SauceDemoPage.Checkout.firstName).shouldBe(visible).clear();
+        $(SauceDemoPage.Checkout.firstName).sendKeys(firstName);
+        $(SauceDemoPage.Checkout.firstName).shouldHave(value(firstName));
+        $(SauceDemoPage.Checkout.lastName).shouldBe(visible).clear();
+        $(SauceDemoPage.Checkout.lastName).sendKeys(lastName);
+        $(SauceDemoPage.Checkout.lastName).shouldHave(value(lastName));
+        $(SauceDemoPage.Checkout.zipCode).shouldBe(visible).clear();
+        $(SauceDemoPage.Checkout.zipCode).sendKeys(zipCode);
+        $(SauceDemoPage.Checkout.zipCode).shouldHave(value(zipCode));
+        logger.info("Checkout form filled successfully");
+        return this;
+    }
+
+    @Step("Verify total calculation (subtotal + tax = total)")
+    public SauceSteps verifyTotalCalculation() {
+        String subtotalText = $(SauceDemoPage.Checkout.subtotalValue).getText();
+        String taxText = $(SauceDemoPage.Checkout.taxValue).getText();
+        String totalText = $(SauceDemoPage.Checkout.totalValue).getText();
+
+        double subtotal = Double.parseDouble(subtotalText.replaceAll("[^0-9.]", ""));
+        double tax = Double.parseDouble(taxText.replaceAll("[^0-9.]", ""));
+        double total = Double.parseDouble(totalText.replaceAll("[^0-9.]", ""));
+
+        double expectedTotal = subtotal + tax;
+        String expectedTotalStr = String.format("%.2f", expectedTotal);
+        String actualTotalStr = String.format("%.2f", total);
+
+        assertTrue(expectedTotalStr.equals(actualTotalStr),
+                String.format("Total mismatch: expected %s but got %s", expectedTotalStr, actualTotalStr));
+
+        logger.info("Total calculation verified: {} + {} = {}", subtotal, tax, total);
+        return this;
+    }
 }
