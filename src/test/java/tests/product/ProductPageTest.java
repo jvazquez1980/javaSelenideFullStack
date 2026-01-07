@@ -45,7 +45,7 @@ public class ProductPageTest extends BaseTest {
         genericSteps.shouldBeVisible(Home.removeToCartButton);
 
         genericSteps.clickElement(SauceDemoPage.Checkout.checkoutButton);
-        genericSteps.clikElement(SauceDemoPage.Checkout.checkoutButton);
+        genericSteps.clickElement(SauceDemoPage.Checkout.checkoutButton);
 
         // Count values
         int productCount = $$(home.productItem).size();
