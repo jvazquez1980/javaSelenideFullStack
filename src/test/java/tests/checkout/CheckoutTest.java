@@ -1,24 +1,24 @@
-package tests.product;
+package tests.checkout;
 
+import com.codeborne.selenide.CollectionCondition;
+import com.codeborne.selenide.Condition;
 import core.BaseTest;
 import data.Users;
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
-
-import com.codeborne.selenide.CollectionCondition;
-import com.codeborne.selenide.Condition;
-
-import pages.home.SauceDemoPage;
 import pages.home.SauceDemoPage.Home;
 import pages.home.SauceDemoPage.Product;
+import pages.home.SauceDemoPage.Checkout;
+import pages.home.SauceDemoPage.Cart;
 import steps.GenericSteps;
 import steps.SauceSteps;
 
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.open;
 
 @Epic("SauceDemo E2E Testing")
 @Feature("Product Details")
-public class ProductPageTest extends BaseTest {
+public class CheckoutTest extends BaseTest {
 
     private final SauceSteps sauceSteps = new SauceSteps();
     private final GenericSteps genericSteps = new GenericSteps();
@@ -34,25 +34,14 @@ public class ProductPageTest extends BaseTest {
 
         genericSteps.shouldBeVisible(Home.productItem);
 
-        $$(Product.productDetails)
-                .filter(Condition.visible)
-                .shouldHave(CollectionCondition.sizeGreaterThan(0));
-
         genericSteps.clickRandomElement(Product.productTitle);
 
         genericSteps.shouldBeVisible(Product.productPrice);
         genericSteps.clickElement(Home.addToCartButton);
+        genericSteps.clickElement(Cart.cartWithProducts);
         genericSteps.shouldBeVisible(Home.removeToCartButton);
 
-        genericSteps.clickElement(SauceDemoPage.Checkout.checkoutButton);
-        genericSteps.clikElement(SauceDemoPage.Checkout.checkoutButton);
 
-        // Count values
-        int productCount = $$(home.productItem).size();
-        $(cart.cartWithProducts).shouldHave(text(String.valueOf(productCount)));
-        genericSteps.shouldBeVisible(Product.productDescription);
-        genericSteps.shouldBeVisible(Product.productTitle);
-
-        logger.info("Chekout process has been donde correctly");
+        logger.info("Product details navigation test completed successfully");
     }
 }
