@@ -28,4 +28,4 @@ public class LoginTest extends BaseTest {
         assertTrue(url().contains("/inventory.html"), "URL should contain /inventory.html after login");
         logger.info("SauceDemo login test completed successfully");
     }
-}
+}   
