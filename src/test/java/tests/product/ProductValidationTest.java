@@ -23,7 +23,7 @@ public class ProductValidationTest extends BaseTest {
     private final SauceSteps sauceSteps = new SauceSteps();
     private final GenericSteps genericSteps = new GenericSteps();
 
-    @Test
+    @Test(groups = { "critical", "all" })
     @Story("User can see the products detail to get more information about the products")
     @Description("Verify product information on Products page and Product details page")
     @Severity(SeverityLevel.CRITICAL)

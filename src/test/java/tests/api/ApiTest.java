@@ -17,7 +17,7 @@ public class ApiTest extends ApiBaseTest {
 
     private BookingClient bookingClient;
 
-    @Test(groups = "api")
+    @Test(groups = { "api", "critical", "all" })
     @Story("API endpoints work correctly")
     @Description("Test that verifies API functionality for posts management")
     @Severity(SeverityLevel.CRITICAL)
@@ -43,7 +43,7 @@ public class ApiTest extends ApiBaseTest {
         logger.info("API endpoints test completed successfully");
     }
 
-    @Test(priority = 2)
+    @Test(priority = 2, groups = { "api", "critical", "all" })
     @Story("API CRUD operations work correctly")
     @Description("Test that verifies full CRUD operations on API")
     @Severity(SeverityLevel.CRITICAL)

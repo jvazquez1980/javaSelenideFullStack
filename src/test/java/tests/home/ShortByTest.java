@@ -21,7 +21,7 @@ public class ShortByTest extends BaseTest {
 
     private final SauceSteps sauceSteps = new SauceSteps();
 
-    @Test
+    @Test(groups = { "normal", "all" })
     @Story("User can sort products to find what they're looking for easily")
     @Description("Verify products can be sorted correctly by A-Z, Z-A, price low-high, and price high-low")
     @Severity(SeverityLevel.NORMAL)

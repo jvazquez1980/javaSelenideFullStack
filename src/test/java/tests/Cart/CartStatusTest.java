@@ -19,7 +19,7 @@ public class CartStatusTest extends BaseTest {
     private final SauceSteps sauceSteps = new SauceSteps();
     private final GenericSteps genericSteps = new GenericSteps();
 
-    @Test
+    @Test(groups = { "critical", "all" })
     @Story("User can view shopping cart status with correct product count")
     @Description("Verify cart status shows correct count across Products page, Product details, and Cart page")
     @Severity(SeverityLevel.CRITICAL)

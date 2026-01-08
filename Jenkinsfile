@@ -63,15 +63,15 @@ pipeline {
     post {
         always {
             publishHTML(target: [
-                allowMissing: false,
+                allowMissing: true,
                 alwaysLinkToLastBuild: true,
                 keepAll: true,
-                reportDir: 'build/reports/tests/test',
+                reportDir: 'build/reports/tests/runBySeverity',
                 reportFiles: 'index.html',
                 reportName: 'TestNG Report'
             ])
 
-            junit allowEmptyResults: true, testResults: 'build/test-results/test/*.xml'
+            junit allowEmptyResults: true, testResults: 'build/test-results/runBySeverity/*.xml'
 
             cleanWs()
         }

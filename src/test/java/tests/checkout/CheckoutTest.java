@@ -18,7 +18,7 @@ public class CheckoutTest extends BaseTest {
     private final SauceSteps sauceSteps = new SauceSteps();
     private final GenericSteps genericSteps = new GenericSteps();
 
-    @Test
+    @Test(groups = { "normal", "all" })
     @Story("User can open the products detail page to get more information about the products")
     @Description("Navigate to Products page and access product details")
     @Severity(SeverityLevel.NORMAL)

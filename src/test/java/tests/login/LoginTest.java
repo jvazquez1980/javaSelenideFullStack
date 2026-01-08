@@ -16,7 +16,7 @@ public class LoginTest extends BaseTest {
 
     private final SauceSteps sauceSteps = new SauceSteps();
 
-    @Test
+    @Test(groups = { "critical", "all" })
     @Story("User can login and navigate to inventory page")
     @Description("Verify user can login with valid credentials, land on inventory page, see cart icon, and open burger menu")
     @Severity(SeverityLevel.CRITICAL)

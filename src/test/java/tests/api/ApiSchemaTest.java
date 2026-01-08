@@ -15,7 +15,7 @@ public class ApiSchemaTest extends ApiBaseTest {
 
     private BookingClient bookingClient;
 
-    @Test(groups = "api")
+    @Test(groups = { "api", "normal", "all" })
     @Story("API schema is correct")
     @Description("Validate JSON schema for GET /users list")
     @Severity(SeverityLevel.NORMAL)
