@@ -8,8 +8,7 @@ import org.testng.annotations.Test;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 
-import pages.home.SauceDemoPage.Home;
-import pages.home.SauceDemoPage.Product;
+import pages.home.SauceDemoPage.*;
 import steps.GenericSteps;
 import steps.SauceSteps;
 

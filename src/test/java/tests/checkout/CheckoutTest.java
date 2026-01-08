@@ -4,10 +4,7 @@ import core.BaseTest;
 import data.Users;
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
-import pages.home.SauceDemoPage.Home;
-import pages.home.SauceDemoPage.Product;
-import pages.home.SauceDemoPage;
-import pages.home.SauceDemoPage.Checkout;
+import pages.home.SauceDemoPage.*;
 import steps.GenericSteps;
 import steps.SauceSteps;
 

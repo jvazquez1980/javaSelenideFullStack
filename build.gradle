@@ -148,6 +148,32 @@ task runSauceDemoTests(type: Test) {
     }
 }
 
+// Task to run tests by severity level
+task runBySeverity(type: Test) {
+    description = 'Runs tests filtered by severity level'
+    group = 'verification'
+
+    useTestNG() {
+        def severityLevel = project.findProperty('severity') ?: 'all'
+
+        if (severityLevel != 'all') {
+            includeGroups severityLevel
+        }
+
+        testClassesDirs = sourceSets.test.output.classesDirs
+        classpath = sourceSets.test.runtimeClasspath
+    }
+
+    systemProperty 'allure.results.directory', 'build/allure-results'
+    systemProperty 'selenide.headless', System.getProperty('selenide.headless', 'false')
+
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+        showStandardStreams = true
+    }
+}
+
 // Task to run tests preserving Allure history for trends
 task testWithHistory {
     description = 'Runs tests preserving Allure history for trend reports'
