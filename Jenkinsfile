@@ -9,7 +9,7 @@ pipeline {
         )
         choice(
             name: 'SEVERITY_LEVEL',
-            choices: ['all', 'blocker', 'critical', 'normal', 'api'],
+            choices: ['all', 'critical', 'normal', 'api', 'low'],
             description: 'Select test severity level to execute'
         )
         booleanParam(
