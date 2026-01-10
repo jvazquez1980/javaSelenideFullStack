@@ -13,13 +13,13 @@ public abstract class BaseTest {
     // UI Test URL
     protected static final String UI_BASE_URL = "https://www.saucedemo.com/";
 
-    @BeforeSuite
+    @BeforeSuite(alwaysRun = true)
     public void setupSuite() {
         logger.info("Setting up UI test suite...");
         logger.info("UI test suite setup completed");
     }
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     @Step("Setting up test environment")
     public void setUp() {
         logger.info("Setting up test...");
@@ -28,7 +28,7 @@ public abstract class BaseTest {
         logger.info("Test setup completed");
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     @Step("Cleaning up test environment")
     public void tearDown() {
         logger.info("Tearing down test...");
