@@ -150,7 +150,7 @@ task runSauceDemoTests(type: Test) {
 
 // Task to run tests by severity level
 task runBySeverity(type: Test) {
-  l    description = 'Runs tests filtered by severity level (supports comma-separated groups)'
+    description = 'Runs tests filtered by severity level (supports comma-separated groups)'
     group = 'verification'
 
     useTestNG() {
