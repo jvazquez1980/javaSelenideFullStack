@@ -150,14 +150,16 @@ task runSauceDemoTests(type: Test) {
 
 // Task to run tests by severity level
 task runBySeverity(type: Test) {
-    description = 'Runs tests filtered by severity level'
+  l    description = 'Runs tests filtered by severity level (supports comma-separated groups)'
     group = 'verification'
 
     useTestNG() {
         def severityLevel = project.findProperty('severity') ?: 'all'
 
         if (severityLevel != 'all') {
-            includeGroups severityLevel
+            // Support comma-separated groups: critical,normal,api
+            def groups = severityLevel.split(',').collect { it.trim() }
+            includeGroups groups as String[]
         }
 
         testClassesDirs = sourceSets.test.output.classesDirs

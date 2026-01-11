@@ -7,10 +7,30 @@ pipeline {
             defaultValue: 'main',
             description: 'Git branch to checkout and test'
         )
-        choice(
-            name: 'SEVERITY_LEVEL',
-            choices: ['all', 'critical', 'normal', 'api', 'low'],
-            description: 'Select test severity level to execute'
+        booleanParam(
+            name: 'RUN_ALL',
+            defaultValue: true,
+            description: '✓ Run all tests (overrides other selections)'
+        )
+        booleanParam(
+            name: 'RUN_CRITICAL',
+            defaultValue: false,
+            description: '✓ Run critical tests'
+        )
+        booleanParam(
+            name: 'RUN_NORMAL',
+            defaultValue: false,
+            description: '✓ Run normal tests'
+        )
+        booleanParam(
+            name: 'RUN_API',
+            defaultValue: false,
+            description: '✓ Run API tests'
+        )
+        booleanParam(
+            name: 'RUN_LOW',
+            defaultValue: false,
+            description: '✓ Run low priority tests'
         )
         booleanParam(
             name: 'HEADLESS',
@@ -48,8 +68,25 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    echo "Running tests with severity level: ${params.SEVERITY_LEVEL}"
-                    sh "./gradlew runBySeverity -Pseverity=${params.SEVERITY_LEVEL} -Dselenide.headless=${params.HEADLESS}"
+                    def severityGroups = []
+
+                    if (params.RUN_ALL) {
+                        severityGroups.add('all')
+                        echo "Running ALL tests"
+                    } else {
+                        if (params.RUN_CRITICAL) severityGroups.add('critical')
+                        if (params.RUN_NORMAL) severityGroups.add('normal')
+                        if (params.RUN_API) severityGroups.add('api')
+                        if (params.RUN_LOW) severityGroups.add('low')
+                    }
+
+                    if (severityGroups.isEmpty()) {
+                        error("No test groups selected! Please select at least one test group.")
+                    }
+
+                    def groupsParam = severityGroups.join(',')
+                    echo "Running tests with groups: ${groupsParam}"
+                    sh "./gradlew runBySeverity -Pseverity=${groupsParam} -Dselenide.headless=${params.HEADLESS}"
                 }
             }
             post {

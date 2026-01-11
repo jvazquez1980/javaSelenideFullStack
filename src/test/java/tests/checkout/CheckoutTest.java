@@ -45,6 +45,7 @@ public class CheckoutTest extends BaseTest {
         genericSteps.clickElement(Checkout.continueButton);
 
         genericSteps.shouldHaveText(Checkout.paymentInfo, "Payment");
+        genericSteps.scrollToElement(Checkout.paymentInfo);
         genericSteps.shouldHaveText(Checkout.paymentValue, "SauceCard");
         genericSteps.shouldHaveText(Checkout.shippingInfo, "Shipping Information");
         genericSteps.shouldHaveText(Checkout.shippingValue, "Free");
@@ -54,6 +55,7 @@ public class CheckoutTest extends BaseTest {
         genericSteps.clickElement(Checkout.finish);
         genericSteps.shouldHaveText(Checkout.succesMessage, "Checkout: Complete");
         genericSteps.shouldHaveText(Checkout.thankYouPage, "Thank you for your order");
+        genericSteps(Checkout.thankYouPage, "Thank you for your order");
 
         logger.info("Product details navigation test completed successfully");
     }
