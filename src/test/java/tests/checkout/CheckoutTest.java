@@ -55,7 +55,6 @@ public class CheckoutTest extends BaseTest {
         genericSteps.clickElement(Checkout.finish);
         genericSteps.shouldHaveText(Checkout.succesMessage, "Checkout: Complete");
         genericSteps.shouldHaveText(Checkout.thankYouPage, "Thank you for your order");
-        genericSteps(Checkout.thankYouPage, "Thank you for your order");
 
         logger.info("Product details navigation test completed successfully");
     }
