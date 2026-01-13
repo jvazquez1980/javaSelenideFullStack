@@ -17,6 +17,14 @@ src/test/java
 ├── steps
 │   ├── SauceSteps.java                 # Steps para SauceDemo
 │   └── GenericSteps.java               # Steps genéricos reutilizables
+├── stepdefinitions                      # Step definitions para BDD
+│   ├── CheckoutSteps.java              # Steps de checkout
+│   ├── LoginSteps.java                 # Steps de login
+│   └── CartSteps.java                  # Steps de carrito
+├── runners
+│   └── CucumberTestRunner.java         # Runner de Cucumber con TestNG
+├── hooks
+│   └── CucumberHooks.java              # Hooks de Cucumber (Before/After)
 ├── api
 │   ├── client
 │   │   └── BookingClient.java          # Cliente API con RestAssured
@@ -37,14 +45,22 @@ src/test/java
     │   └── ProductValidationTest.java  # Tests de validación de producto
     ├── Cart
     │   └── CartStatusTest.java         # Tests del carrito
+    ├── checkout
+    │   └── CheckoutTest.java           # Tests de checkout
     └── api
         ├── ApiTest.java                # Tests CRUD de API
         └── ApiSchemaTest.java          # Tests de validación de schema
+
+src/test/resources
+└── features                             # Features BDD en Gherkin
+    ├── Checkout.feature                # Feature de checkout
+    ├── Login.feature                   # Feature de login
+    └── Cart.feature                    # Feature de carrito
 ```
 
 ## 🚀 Sitios de Prueba
 
-- **UI Testing**: https://automationintesting.online/
+- **UI Testing**: https://www.saucedemo.com/
 - **API Testing**: https://jsonplaceholder.typicode.com/
 
 ## 📋 Prerrequisitos
@@ -134,13 +150,7 @@ echo 'export JAVA_HOME="/opt/homebrew/opt/openjdk@11"' >> ~/.zshrc
 ./gradlew runSuite
 ```
 
-### Ejecutar tests por tipo
-```bash
-./gradlew runUITests        # Solo tests de UI
-./gradlew runAPITests       # Solo tests de API
-./gradlew runEndToEndTest   # Tests End-to-End
-./gradlew runSauceDemoTests # Tests de SauceDemo
-```
+
 
 ### Ejecutar test específico
 ```bash
@@ -153,17 +163,22 @@ echo 'export JAVA_HOME="/opt/homebrew/opt/openjdk@11"' >> ~/.zshrc
 ./gradlew test --tests "tests.Cart.CartAddProductTest" allureServe
 ```
 
-### Ejecutar tests en modo headless
+### Ejecutar por severidad o grupos
 ```bash
-# Modo headless (sin interfaz gráfica) - ideal para CI/CD
+# Todos los tests
+./gradlew runBySeverity -Pseverity=all
+
+# Por severidad específica
+./gradlew runBySeverity -Pseverity=critical
+./gradlew runBySeverity -Pseverity=normal,api
+
+# Tests BDD
+./gradlew runBDD
+./gradlew runBDD -Dcucumber.filter.tags="@login-flow"
+
+# Modo headless (para CI/CD)
 ./gradlew test -Dselenide.headless=true
-
-# Combinar con tipos específicos
-./gradlew runUITests -Dselenide.headless=true
-./gradlew runSauceDemoTests -Dselenide.headless=true
 ```
-
-
 
 ## 📊 Reportes Allure
 
@@ -188,7 +203,6 @@ allure serve build/allure-results   # Usando CLI de Allure
 
 ### Reporte HTML básico de TestNG
 ```bash
-
 open build/reports/tests/test/index.html
 ```
 
@@ -197,7 +211,7 @@ open build/reports/tests/test/index.html
 - **Reportes Allure**: `build/reports/allure-report/allureReport/index.html`
 - **Reportes TestNG**: `build/reports/tests/test/index.html`
 
-## � CI/CD - Jenkins Pipeline
+## 🔄 CI/CD - Jenkins Pipeline
 
 Este proyecto incluye un pipeline de Jenkins configurado para ejecución automática de tests.
 
@@ -220,10 +234,22 @@ GRADLE_OPTS = '-Dorg.gradle.daemon=false'
 
 ### Ejecución en Jenkins
 
-Los tests se ejecutan automáticamente en **modo headless** (sin interfaz gráfica):
+Los tests se ejecutan con **parámetros configurables**:
 
+#### Parámetros disponibles:
+- **BRANCH**: Rama de Git a testear (default: `main`)
+- **RUN_ALL**: Ejecutar todos los tests (default: `true`)
+- **RUN_CRITICAL**: Ejecutar tests críticos
+- **RUN_NORMAL**: Ejecutar tests normales
+- **RUN_API**: Ejecutar tests de API
+- **RUN_LOW**: Ejecutar tests de baja prioridad
+- **RUN_BDD**: Ejecutar tests BDD/Cucumber
+- **HEADLESS**: Modo headless (default: `true`)
+
+#### Ejemplo de ejecución:
 ```bash
-./gradlew test -Dselenide.headless=true
+# Jenkins construye el comando basado en los checkboxes seleccionados
+./gradlew runBySeverity -Pseverity=critical,normal -Dselenide.headless=true
 ```
 
 **Ventajas del modo headless:**
@@ -256,7 +282,7 @@ El pipeline se puede ejecutar:
 - **Automático**: Configurando webhooks en GitHub (push/PR)
 - **Programado**: Usando cron syntax en Jenkins
 
-## �� Configuración Personalizada
+## ⚙️ Configuración Personalizada
 
 ### Modificar configuración del navegador
 Edita `src/test/java/core/DriverManager.java`:
@@ -271,8 +297,12 @@ Configuration.browserSize = "1366x768";
 ### Modificar URLs de prueba
 Edita `src/test/java/core/BaseTest.java`:
 ```java
-protected static final String UI_BASE_URL = "tu-url-ui";
-protected static final String API_BASE_URL = "tu-url-api";
+protected static final String UI_BASE_URL = "https://www.saucedemo.com/";
+```
+
+Edita `src/test/java/core/ApiBaseTest.java`:
+```java
+protected static final String API_BASE_URL = "https://jsonplaceholder.typicode.com";
 ```
 
 ## 🧩 Principios SOLID Aplicados
@@ -291,8 +321,7 @@ protected static final String API_BASE_URL = "tu-url-api";
 4. **Complete Workflow**: Flujo completo UI + API
 
 ### Datos de Prueba:
-- **Admin**: `admin / password`
-- **Test User**: Datos generados dinámicamente
+- **SauceDemo User**: `standard_user / secret_sauce`
 - **API Data**: Posts de prueba en JSONPlaceholder
 
 
@@ -343,11 +372,28 @@ curl https://jsonplaceholder.typicode.com/posts/1
 1. Extender `data/Users.java`
 2. Crear nuevas clases de datos según necesidad
 
+## 📚 Documentación Adicional
+
+- **[BDD_README.md](BDD_README.md)**: Guía completa de BDD con Cucumber
+- **[BDD_TAGS_GUIDE.md](BDD_TAGS_GUIDE.md)**: Guía de tags para features BDD
+- **[Jenkinsfile](Jenkinsfile)**: Configuración del pipeline de Jenkins
+
+## 🎯 Características Principales
+
+- ✅ **Tests UI** con Selenide y Page Object Model
+- ✅ **Tests API** con RestAssured
+- ✅ **Tests BDD** con Cucumber y Gherkin
+- ✅ **Reportes Allure** con screenshots y pasos detallados
+- ✅ **Jenkins Pipeline** con parámetros configurables
+- ✅ **Filtrado por severidad** (critical, normal, api, low, bdd)
+- ✅ **Modo headless** para CI/CD
+- ✅ **Principios SOLID** y código reutilizable
+
 ## 🤝 Contribución
 
 1. Seguir principios SOLID
 2. Mantener cobertura de tests
 3. Documentar cambios importantes
 4. Usar logging apropiado
-
+5. Escribir features BDD para flujos críticos
 
