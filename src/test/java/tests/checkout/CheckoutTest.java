@@ -9,7 +9,6 @@ import steps.GenericSteps;
 import steps.SauceSteps;
 
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.Condition.*;
 
 @Epic("SauceDemo E2E Testing")
 @Feature("Checkout Flow")

@@ -33,6 +33,11 @@ pipeline {
             description: '✓ Run low priority tests'
         )
         booleanParam(
+            name: 'RUN_BDD',
+            defaultValue: false,
+            description: '✓ Run BDD/Cucumber tests'
+        )
+        booleanParam(
             name: 'HEADLESS',
             defaultValue: true,
             description: 'Run tests in headless mode'
@@ -78,6 +83,7 @@ pipeline {
                         if (params.RUN_NORMAL) severityGroups.add('normal')
                         if (params.RUN_API) severityGroups.add('api')
                         if (params.RUN_LOW) severityGroups.add('low')
+                        if (params.RUN_BDD) severityGroups.add('bdd')
                     }
 
                     if (severityGroups.isEmpty()) {
