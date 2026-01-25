@@ -64,15 +64,19 @@ pipeline {
             }
         }
 
-        stage('Decrypt Secrets') {
+        stage('Setup Secrets') {
             steps {
                 script {
-                    echo "Decrypting secret.properties file..."
-                    withCredentials([string(credentialsId: 'secrets-gpg-passphrase', variable: 'GPG_PASS')]) {
+                    echo "Creating secret.properties from Jenkins credentials..."
+                    withCredentials([
+                        string(credentialsId: 'saucedemo-username', variable: 'SAUCE_USER'),
+                        string(credentialsId: 'saucedemo-password', variable: 'SAUCE_PASS')
+                    ]) {
                         sh '''
-                            echo $GPG_PASS | gpg --batch --yes --passphrase-fd 0 \
-                                --decrypt secret.properties.gpg > secret.properties
-                            echo "✅ Secrets file decrypted successfully"
+                            echo "# SauceDemo Credentials" > secret.properties
+                            echo "saucedemo.username=${SAUCE_USER}" >> secret.properties
+                            echo "saucedemo.password=${SAUCE_PASS}" >> secret.properties
+                            echo "✅ Secrets file created successfully"
                         '''
                     }
                 }
