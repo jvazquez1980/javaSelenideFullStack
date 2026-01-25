@@ -60,128 +60,9 @@ if (params.RUN_BDD) severityGroups.add('bdd')
 
 Los tests BDD se ejecutan automáticamente cuando seleccionas "all" en Jenkins, ya que tienen el tag `@all`.
 
-## 📝 Ejemplo de Feature (Gherkin)
-
-```gherkin
-@checkout @bdd
-Feature: Checkout Flow
-  As a user of SauceDemo
-  I want to complete a purchase
-  So that I can buy products
-
-  Background:
-    Given I am on the SauceDemo homepage
-    And I login with valid credentials
-
-  @critical @all
-  Scenario: Complete checkout process successfully
-    Given I am on the products page
-    When I add a random product to cart
-    And I navigate to the cart
-    Then the cart badge should match the product count
-    When I proceed to checkout
-    And I fill the checkout form with:
-      | firstName | lastName  | zipCode |
-      | Quality   | Assurance | 12345   |
-    And I continue to the overview page
-    Then I should see payment information as "SauceCard"
-    And I should see shipping information as "Free"
-    And the total calculation should be correct
-    When I finish the checkout
-    Then I should see the success message "Thank you for your order"
-    And I should be on the complete page
-
-  @normal @all
-  Scenario Outline: Complete checkout with different user data
-    Given I am on the products page
-    When I add a random product to cart
-    And I proceed to checkout
-    And I fill the checkout form with:
-      | firstName   | lastName   | zipCode   |
-      | <firstName> | <lastName> | <zipCode> |
-    And I continue to the overview page
-    Then I should see payment information as "SauceCard"
-    When I finish the checkout
-    Then I should see the success message "Thank you for your order"
-
-    Examples:
-      | firstName | lastName | zipCode |
-      | John      | Doe      | 10001   |
-      | Jane      | Smith    | 90210   |
-      | Bob       | Johnson  | 60601   |
-```
-
-## 🔧 Cómo crear nuevos tests BDD
-
-### 1. Crear un nuevo Feature file
-
-Crea un archivo `.feature` en `src/test/resources/features/`:
-
-```gherkin
-@login @bdd
-Feature: User Login
-
-  @critical @all
-  Scenario: Successful login with valid credentials
-    Given I am on the login page
-    When I enter username "standard_user"
-    And I enter password "secret_sauce"
-    And I click the login button
-    Then I should be on the products page
-```
-
 ### 2. Crear Step Definitions
 
 Crea o actualiza archivos en `src/test/java/stepdefinitions/`:
-
-```java
-package stepdefinitions;
-
-import io.cucumber.java.en.*;
-import steps.SauceSteps;
-
-public class LoginSteps {
-
-    private final SauceSteps sauceSteps = new SauceSteps();
-
-    @Given("I am on the login page")
-    public void iAmOnTheLoginPage() {
-        open("https://www.saucedemo.com/");
-    }
-
-    @When("I enter username {string}")
-    public void iEnterUsername(String username) {
-        $(Login.userName).setValue(username);
-    }
-
-    @When("I enter password {string}")
-    public void iEnterPassword(String password) {
-        $(Login.password).setValue(password);
-    }
-
-    @When("I click the login button")
-    public void iClickTheLoginButton() {
-        $(Login.loginCta).click();
-    }
-
-    @Then("I should be on the products page")
-    public void iShouldBeOnTheProductsPage() {
-        $(Home.productList).shouldBe(visible);
-    }
-}
-```
-
-### 3. Reutilizar Steps existentes
-
-Los step definitions pueden usar tus clases `SauceSteps` y `GenericSteps` existentes:
-
-```java
-@When("I add a random product to cart")
-public void iAddARandomProductToCart() {
-    genericSteps.clickRandomElement(Product.productTitle);
-    genericSteps.shouldBeVisible(Product.productPrice);
-    genericSteps.clickElement(Home.addToCartButton);
-}
 ```
 
 ## 📊 Reportes
@@ -200,14 +81,6 @@ Los tests BDD también aparecen en los reportes de Allure:
 
 ```bash
 ./gradlew allureServe
-```
-
-### JSON Report
-
-Para integración con otras herramientas:
-
-```
-build/reports/cucumber/cucumber.json
 ```
 
 ## 🏷️ Tags en Cucumber

@@ -47,6 +47,7 @@ buildNumber.properties
 .classpath
 .project
 .settings/
+bin/
 
 # OS
 .DS_Store
@@ -64,3 +65,7 @@ target/logs/
 chromedriver
 geckodriver
 *.exe
+
+# Secrets
+secrets.properties
+secret.properties

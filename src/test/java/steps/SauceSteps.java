@@ -1,15 +1,18 @@
 package steps;
 
-import data.Users;
-import io.qameta.allure.Step;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import pages.home.SauceDemoPage;
-
-import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Condition.enabled;
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.value;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static org.testng.Assert.assertTrue;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import io.qameta.allure.Step;
+import pages.home.SauceDemoPage;
 
 public class SauceSteps {
     private static final Logger logger = LoggerFactory.getLogger(SauceSteps.class);

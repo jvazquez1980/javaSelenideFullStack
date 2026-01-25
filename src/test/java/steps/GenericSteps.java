@@ -1,12 +1,14 @@
 package steps;
 
-import io.qameta.allure.Step;
+import static com.codeborne.selenide.Condition.exist;
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selenide.$;
-import static org.openqa.selenium.By.id;
+import io.qameta.allure.Step;
 
 public class GenericSteps {
     private static final Logger logger = LoggerFactory.getLogger(GenericSteps.class);

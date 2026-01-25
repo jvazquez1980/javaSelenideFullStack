@@ -1,6 +1,5 @@
 package stepdefinitions;
 
-import core.DriverManager;
 import data.Users;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.*;
@@ -48,7 +47,7 @@ public class CheckoutSteps {
 
     @Then("the cart badge should match the product count")
     public void theCartBadgeShouldMatchTheProductCount() {
-        sauceSteps.verifyCartBadgeMatchesProductCount();
+        SauceSteps.verifyCartBadgeMatchesProductCount();
         genericSteps.shouldBeVisible(Product.productDescription);
         genericSteps.shouldBeVisible(Product.productTitle);
     }
