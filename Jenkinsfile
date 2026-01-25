@@ -37,11 +37,6 @@ pipeline {
             defaultValue: false,
             description: '✓ Run BDD/Cucumber tests'
         )
-        booleanParam(
-            name: 'HEADLESS',
-            defaultValue: true,
-            description: 'Run tests in headless mode'
-        )
     }
 
     environment {
@@ -111,7 +106,8 @@ pipeline {
 
                     def groupsParam = severityGroups.join(',')
                     echo "Running tests with groups: ${groupsParam}"
-                    sh "./gradlew runBySeverity -Pseverity=${groupsParam} -Dselenide.headless=${params.HEADLESS}"
+                    echo "Running in HEADLESS mode (always enabled in Jenkins)"
+                    sh "./gradlew runBySeverity -Pseverity=${groupsParam} -Dselenide.headless=true"
                 }
             }
             post {
