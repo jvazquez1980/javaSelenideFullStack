@@ -64,6 +64,21 @@ pipeline {
             }
         }
 
+        stage('Decrypt Secrets') {
+            steps {
+                script {
+                    echo "Decrypting secret.properties file..."
+                    withCredentials([string(credentialsId: 'secrets-gpg-passphrase', variable: 'GPG_PASS')]) {
+                        sh '''
+                            echo $GPG_PASS | gpg --batch --yes --passphrase-fd 0 \
+                                --decrypt secret.properties.gpg > secret.properties
+                            echo "✅ Secrets file decrypted successfully"
+                        '''
+                    }
+                }
+            }
+        }
+
         stage('Build') {
             steps {
                 sh './gradlew clean compileTestJava'
@@ -105,6 +120,9 @@ pipeline {
 
     post {
         always {
+            // Limpiar archivo de secrets desencriptado
+            sh 'rm -f secret.properties'
+
             publishHTML(target: [
                 allowMissing: true,
                 alwaysLinkToLastBuild: true,
