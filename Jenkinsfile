@@ -2,9 +2,14 @@ pipeline {
     agent any
 
     parameters {
-        string(
+        gitParameter(
             name: 'BRANCH',
+            type: 'PT_BRANCH',
             defaultValue: 'main',
+            branchFilter: 'origin/(.*)',
+            sortMode: 'ASCENDING_SMART',
+            selectedValue: 'DEFAULT',
+            quickFilterEnabled: true,
             description: 'Git branch to checkout and test'
         )
         booleanParam(
@@ -52,7 +57,7 @@ pipeline {
                     echo "Checking out branch: ${params.BRANCH}"
                     checkout([
                         $class: 'GitSCM',
-                        branches: [[name: "*/${params.BRANCH}"]],
+                        branches: [[name: "${params.BRANCH}"]],
                         userRemoteConfigs: scm.userRemoteConfigs
                     ])
                 }
