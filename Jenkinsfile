@@ -125,12 +125,12 @@ pipeline {
 
             publishHTML(target: [
                 allowMissing: true,
-                alwaysLinkToLastBuild: true,
-                keepAll: true,
+             keepAll: true,
                 reportDir: 'build/reports/tests/runBySeverity',
                 reportFiles: 'index.html',
                 reportName: 'TestNG Report'
-            ])
+            ])   alwaysLinkToLastBuild: true,
+
 
             junit allowEmptyResults: true, testResults: 'build/test-results/runBySeverity/*.xml'
 
