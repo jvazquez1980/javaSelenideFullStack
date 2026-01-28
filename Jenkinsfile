@@ -137,8 +137,13 @@ pipeline {
                 reportName: 'TestNG Report'
             ])
 
-
             junit allowEmptyResults: true, testResults: 'build/test-results/runBySeverity/*.xml'
+
+            emailext(
+                to: 'javitxuelo@gmail.com',
+                subject: "${currentBuild.currentResult}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: "URL: ${env.BUILD_URL}"
+            )
 
             cleanWs()
         }
